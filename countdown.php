@@ -83,18 +83,12 @@
               
             if(isset($_POST["token"]))  {
                 
-                //database variables
-                $servername = "localhost";
-                $username = "ghu181118";
-                $password = "ghu181118";
-                $dbname = "guess_highest_unique_181118";
-        
+                include("ghu_dbconnect.php");
+                global $conn;
+
                 //posted variables
                 $post_token = $_POST["token"];
                 
-                 //create connection
-                $conn = mysqli_connect($servername, $username, $password, $dbname);
-    
                 //check connection
                 if ($conn) {
       
