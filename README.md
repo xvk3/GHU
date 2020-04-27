@@ -23,19 +23,26 @@ The Guess Highest Unique number "lottery" involves three processes
 ```
 register.php
 ```
- - [] Disable Registration during Guess/Result mode
+ - [x] Disable Registration during Guess/Result mode
+    - META->STATE must be 1 to permit registration
 
 ```
 token.php
 ```
- - [] Prevent Duplicate TOKENS
-
+ - [x] Prevent Duplicate TOKENS
+ - [] Prevent INSERTING new registrations when STATE != 1
 ```
 guess.php
 ```
  - [] Needs to know NUMBER_OF_PARTICIPANTS and have limits on the form
-
+    - Use JS to limit the input
 ```
 countdown.php
 ```
  - [] Timezones, Server Time, Local Time
+    - See test.php
+
+```
+results.php
+```
+ - [] Create this, can use existing Codepen version
