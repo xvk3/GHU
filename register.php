@@ -14,17 +14,25 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/index.js"></script>
+    <script>
+    function secToHMS(seconds) {
+      var hours = Math.floor(seconds / 60 / 60);
+      var minutes = Math.floor(seconds / 60) - (hours * 60);
+      var rseconds = Math.floor(seconds % 60);
+      return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + rseconds.toString().padStart(2, '0');
+    }
+    </script>
 
   
 </head>
 
-<body>
+<body onload="tr()">
 
   <div class="vcent noselect">
     <div id="header"> <h1>XVK3<span>.NET</span></h1> </div>
     <div id="nav">
        <ul>
-         <li><a href="register.html">Register</a></li>
+         <li><a href="register.php">Register</a></li>
          <li><a href="countdown.php">Countdown</a></li>
          <li><a href="results.php">Results</a></li>
       </ul>
@@ -38,36 +46,54 @@
   global $conn;
 
 
-  $sql = "SELECT STATE FROM META";
+  $sql = "SELECT STATE,RP FROM META";
   $pql = mysqli_prepare($conn, $sql);
 
   if(!mysqli_stmt_execute($pql)) {
-    echo "register.php:mysqli_stmt_execute failed";
+    echo "register.php:mysqli_stmt_execute failed\n";
     die();
   } else {
-    echo "register.php:mysqli_stmt_execute sucess";
+    //echo "register.php:mysqli_stmt_execute sucess\n";
   }
 
   $res = mysqli_stmt_get_result($pql);
   if(!$res) {
-    echo "register.php:mysqli_stmt_get_result failed";
+    echo "register.php:mysqli_stmt_get_result failed\n";
     die();
   } else {
-    echo "register.php:mysqli_stmt_get_result success";
+    //echo "register.php:mysqli_stmt_get_result success\n";
   }
 
   $row = mysqli_fetch_assoc($res);
   if(!$row) {
-    echo "register.php:mysqli_fetch_assoc failed";
+    echo "register.php:mysqli_fetch_assoc failed\n";
     die();
   } else {
-    echo "register.php:mysqli_fetch_assoc success";
+    //echo "register.php:mysqli_fetch_assoc success\n";
   }
 
-  echo $row['STATE'];
+  if($row['STATE'] == 1) {
+    echo "<p>Registration Active</p>\r\n";
+    echo "<form action=\"token.php\" method=\"post\">\r\n";
+  } else {
+    echo "<script>\r\n";
+    echo "function tr() {\r\n";
+    echo "  var n = new Date;\r\n";
+    echo "  var t = new Date(";
+    echo $row['RP'];
+    echo "*1000);\r\n";
+    echo "  if (t > n) d = (t - n);\r\n"; 
+    echo "  document.getElementById(\"rpt\").innerHTML = t;\r\n";
+    echo "  document.getElementById(\"rpd\").innerHTML = secToHMS(d/1000);\r\n";
+    echo "}\r\n";
+    echo "</script>\r\n";
+    echo "<p id=\"rpt\">REGISTRATION PERIOD TIME</p>\r\n";
+    echo "<p id=\"rpd\">REGISTRATION PERIOD TIME REMAINING</p>\r\r";
+    echo "<form>\r\n";
+  }
 
 ?>
-      <form action="token.php" method="post">
+      <!--<form action="token.php" method="post">-->
         <div class="input">
           <input type="name" name="name" placeholder="name" required="required" />
           <span><i class="fa fa-user"></i></span>
@@ -80,7 +106,7 @@
       </form>
     </div>
     <div id="context">
-      <p>Context for your game here btw</p>
+      <p>Guess Highest Unique Lottery</p>
     </div>
   </div>
 
