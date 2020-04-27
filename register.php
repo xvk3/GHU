@@ -3,7 +3,7 @@
   
 <head>
     <meta charset="UTF-8">
-    <title>GHU - Guess Highest Unique Register</title>
+    <title>GHU - Guess Highest Unique Registration</title>
     
     <link rel="stylesheet" href="/css/style.css">
     <!-- have to link to this stylesheet for now -->
@@ -32,14 +32,40 @@
     <div class="register">
 
 <?php
+
+  // Database conn
   include("ghu_dbconnect.php");
   global $conn;
+
+
   $sql = "SELECT STATE FROM META";
-  $result = mysqli_query($conn, $sql);
-  if($result) {
-    $row = mysqli_fetch_row($result);
-    echo $row;
+  $pql = mysqli_prepare($conn, $sql);
+
+  if(!mysqli_stmt_execute($pql)) {
+    echo "register.php:mysqli_stmt_execute failed";
+    die();
+  } else {
+    echo "register.php:mysqli_stmt_execute sucess";
   }
+
+  $res = mysqli_stmt_get_result($pql);
+  if(!$res) {
+    echo "register.php:mysqli_stmt_get_result failed";
+    die();
+  } else {
+    echo "register.php:mysqli_stmt_get_result success";
+  }
+
+  $row = mysqli_fetch_assoc($res);
+  if(!$row) {
+    echo "register.php:mysqli_fetch_assoc failed";
+    die();
+  } else {
+    echo "register.php:mysqli_fetch_assoc success";
+  }
+
+  echo $row['STATE'];
+
 ?>
       <form action="token.php" method="post">
         <div class="input">
