@@ -40,7 +40,7 @@
   global $conn;
 
 
-  $sql = "SELECT STATE,GP FROM META";
+  $sql = "SELECT STATE,GP,NOP FROM META";
   $pql = mysqli_prepare($conn, $sql);
 
   if(!mysqli_stmt_execute($pql)) {
@@ -66,7 +66,7 @@
     //echo "register.php:mysqli_fetch_assoc success\n";
   }
 
-  if($row['STATE'] == 1) {
+  if($row['STATE'] == 2) {
     echo "<p>Submission Active</p>\r\n";
     echo "<form action=\"guess.php\" method=\"post\">\r\n";
   } else {
@@ -88,12 +88,16 @@
     ?>
       <!--<form action="guess.php" method="post">-->
         <div class="input" >
-          <input type="name" name="token" required="required"/>
+          <input type="name" name="token" placeholder="token" required="required"/>
           <span><i class="fa fa-key"></i></span>
         </div>
         <div class="input">
-          <input type="number" name="guess" placeholder="guess" required="required" />
-          <!-- Chris to add some fancy input validation preventing participants from entering an invalid number -->
+          <input type="number" name="guess" placeholder="1 - <?php
+          echo $row['NOP'];
+          echo "\" min=\"1\" max=\"";
+          echo $row['NOP'];
+          echo "\"";
+          ?> required="required" />
           <span><i class="fa fa-question"></i></span>
         </div>
         <button type="submit" class="btn btn-primary btn-block btn-large">Submit</button>
