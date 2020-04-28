@@ -12,21 +12,36 @@
   Until $st is greater than $ct
   $st is now the start of the registration period
   */
-  $st = "2020/04/06";
-  echo "Starting at " . $st . "\r\n";
-  $st =  strtotime($st);
-  echo $st . "\r\n";
 
-  $ct = time();
-  echo $ct . "\r\n";
-  //echo date('r', $ct) . "\r\n";
-  echo "enter while\r\n";
-  while($ct > $st) {
-    $st = $st + 604800;
-    echo "Moved to " . date('Y/m/d', $st) . "\r\n";
+  // Starting dates
+  $sRP = "2020/04/06";
+  $sGP = "2020/04/08";
+  $sFP = "2020/04/10";
+
+  echo "Registration Period Starting at " . $sRP . "\r\n";
+  echo "Guessing     Period Starting at " . $sGP . "\r\n";
+  echo "Final        Period Starting at " . $sFP . "\r\n";
+
+  $rp = strtotime($sRP);
+  $gp = strtotime($sGP);
+  $fp = strtotime($sGP);
+
+  // Current Date
+  $cd = time();
+  
+  // While "Registration Period" < "Current Date"
+  while($rp < $cd) {
+    $rp = $rp + 604800;
+    echo "Moved to " . date('Y/m/d', $rp) . "\r\n";
   }
-  echo $st . "\r\n";
-  echo $ct . "\r\n";
+
+  // While "Final Period" < "Current Date"
+  while($fp < $cd) {
+    $fp = $fp + 604800;
+ }
+
+  echo "New Registrion Date = " . date('Y/m/d', $rp) . "\r\n";
+  echo "New Results    Date = " . date('Y/m/d', $fp) . "\r\n";
 
   include("ghu_dbconnect.php");
   global $conn;
@@ -35,7 +50,7 @@
     $sql = "DELETE FROM GHU WHERE 1";
     mysqli_query($conn, $sql);
 
-    $sql = "UPDATE META SET MAIN=0, STATE=0, RP=$st WHERE TRUE";
+    $sql = "UPDATE META SET MAIN=0, STATE=0, RP=$rp, GP=$gp WHERE TRUE";
     mysqli_query($conn, $sql);
 
     mysqli_close($conn);
