@@ -59,53 +59,45 @@
             echo "guess.php:mysqli_stmt_bind_result failed\r\n";
             //die();
           } else {
-            if(!mysqli_stmt_fetch($pql)) {
-              echo "guess.php:mysqli_stmt_fetch failed\r\n";
-              echo mysqli_error($conn);
-              //TODO check that post_token and token are the same? pointless?
-              echo $token;
-              echo "aft token";
-              //die();
+            $cycle = 0;
+            while(mysqli_stmt_fetch($pql)) {
+              echo "guess.php:mysqli_stmt_fetch success call " . $cycle . "\r\n";
+              $cycle = $cycle + 1;
+            }
+            echo $token . "\r\n";
+            echo $guess . "\r\n";
+            if($guess) {
+              echo "already guessed\r\n";
+              die();
             } else {
-              echo $id . "\r\n";
-              echo $token . "\r\n";
-              echo $guess . "\r\n";
-              if($guess) {
-                echo "already guessed\r\n";
-                die();
+              echo "not already guessed\r\n";
+              $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
+              $pql = mysqli_prepare($conn, $sql);
+              if(!mysqli_stmt_bind_param($pql, 'ss', $post_guess, $id)) {
+                echo "guess.php:mysqli_stmt_bind_param failed\r\n";
+                //die();
               } else {
-                echo "not already guessed\r\n";
-                $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
-                $pql = mysqli_prepare($conn, $sql);
-                if($pql) {
-                  echo "pql = true\r\n";
-                } else {echo "pql = false\r\n";}
-                if(!$pql) die(mysqli_error($conn));
-                if(!mysqli_stmt_bind_param($pql, 's', $post_guess, $id)) {
-                  echo "guess.php:mysqli_stmt_bind_param failed\r\n";
-                  //die();
-                } else {
-                  //echo "guess.php:mysqli_stmt_bind_param success\r\n";
-                }
+                //echo "guess.php:mysqli_stmt_bind_param success\r\n";
+              }
 
-                if(!mysqli_stmt_execute($pql)) {
-                  echo "guess.php:mysqli_stmt_execute failed\r\n";
-                  //die();
-                } else {
-                  //echo "guess.php:mysqli_stmt_execute success\r\n";
-                }
+              if(!mysqli_stmt_execute($pql)) {
+                echo "guess.php:mysqli_stmt_execute failed\r\n";
+                //die();
+              } else {
+                //echo "guess.php:mysqli_stmt_execute success\r\n";
+              }
 
-                if(!mysqli_affected_rows($conn)) {
-                  echo "guess.php:mysqli_affected_rows failed/returned 0\r\n";
-                  //die();
-                } else {
-                  echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
-                }
+              if(!mysqli_affected_rows($conn)) {
+                echo "guess.php:mysqli_affected_rows failed/returned 0\r\n";
+                //die();
+              } else {
+                echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
               }
             }
           }
         }
       }
+    
       //close the database
       mysqli_close($conn);
     }
