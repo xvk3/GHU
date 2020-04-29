@@ -34,8 +34,7 @@ token.php
 ```
 guess.php
 ```
- - [] Needs to know NUMBER_OF_PARTICIPANTS and have limits on the form
-    - Use JS to limit the input
+ - [] Needs to know META->NOP and prevent guessing of invalid numbers
 ```
 countdown.php
 ```

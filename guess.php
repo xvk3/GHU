@@ -71,6 +71,9 @@
               die();
             } else {
               echo "not already guessed\r\n";
+
+              // TODO need to check that guess is between 1 and META->NOP
+
               $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
               $pql = mysqli_prepare($conn, $sql);
               if(!mysqli_stmt_bind_param($pql, 'ss', $post_guess, $id)) {
