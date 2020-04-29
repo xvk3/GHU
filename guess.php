@@ -1,100 +1,117 @@
 <!DOCTYPE html>
 <html lang="en" >
 
-<head>
-  <meta charset="UTF-8">
-  <title>XVK3 - Token</title>
-  
-  <link rel="stylesheet" href="/css/google_font_css.css">
-  <link rel="stylesheet" href="/css/style.css">
-      <script src="/js/jquery.min.js"></script>
+  <head>
+    <meta charset="UTF-8">
+    <title>XVK3 - Token</title>
+    <link rel="stylesheet" href="/css/google_font_css.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/index.js"></script>  
+  </head>
+  <body>
 
-  
-</head>
-
-<body>
-
-<div class="vcent noselect">
+  <div class="vcent noselect">
     <div id="header">
       <h1>XVK3<span>.NET</span></h1>
     </div>
     <div id="nav">
        <ul>
-         <li><a href="register.html">Register</a></li>
+         <li><a href="register.php">Register</a></li>
          <li><a href="countdown.php">Countdown</a></li>
          <li><a href="results.php">Results</a></li>
       </ul>
     </div>
     <div class="token display">
-        <input id="token" type="text" name="input" value="<?php
-        //this is going to be a fancy PHP script which fills in the token field on countdown.php
-        //if it was accessed from token.php
-    if($_SERVER['REQUEST_METHOD'] == 'POST')  {
+  <?php 
+  if($_SERVER['REQUEST_METHOD'] == 'POST')  {
+    if(isset($_POST["token"]) && isset($_POST["guess"]))   {
 
-        if(isset($_POST["token"]) && isset($_POST["guess"]))   {
-
-            include("ghu_dbconnect.php");
-            global $conn;
+      include("ghu_dbconnect.php");
+      global $conn;
         
-            //posted variables
-            $post_token = $_POST["token"];
-            $post_guess = $_POST["guess"];
+      //posted variables
+      $post_token = $_POST["token"];
+      $post_guess = $_POST["guess"];
     
-            //check connection
-            if ($conn) {
+      //check connection
+      if ($conn) {
 
-                //echo "   token:";
-                //echo $post_token;
+        //echo "   token:";
+        //echo $post_token;
 
-                //find user by TOKEN
-                $sql = "SELECT ID, TOKEN, GUESS FROM GHU WHERE TOKEN = '$post_token'";
-                
-				$result = mysqli_query($conn, $sql);
-				//echo mysqli_error($conn);
-				//echo "    rows: ";
-				//echo mysqli_num_rows($result);
-				if(mysqli_num_rows($result) == 1)	{
-				    
-					//check if guess has been made already
-				    if($row = mysqli_fetch_array($result)) {
-				        //echo "   guess:";
-				        //echo $row[2];
-				        if($row[2] == NULL) {
-				            
-				            //$id = $row[0];
-		    	    	    //echo "  id:";
-		         		    //echo $id;
-			        	    $sql = "UPDATE GHU SET GUESS='$post_guess' WHERE TOKEN='$post_token'";
-				            $result = mysqli_query($conn, $sql);
-				            if($result === TRUE)  {
-			        	        echo "Successful Submission";
-				            } else {
-				                echo "Error: failed to update DB";
-				            }
-				        }   else {
-				            echo "Error: already guessed a number";
-				        }
-				    }	else	{
-					    echo "Error: invalid TOKEN";
-				    }
-				
-			    //close the database
-                mysqli_close($conn);	
-
-                }   else {
-                    echo "Error: ";
-                }
-            }   else {
-                echo "Error: invalid post parameters";
-            }
-        }   else {
-            echo "Error: not posted to token.php";
+        //find user by TOKEN
+        $sql = "SELECT ID, TOKEN, GUESS FROM GHU WHERE TOKEN=?";
+        $pql = mysqli_prepare($conn, $sql);
+        if(!mysqli_stmt_bind_param($pql, 's', $post_token)) {
+          echo "guess.php:mysqli_stmt_bind_param failed\r\n";
+          //die();
+        } else {
+          //echo "guess.php:mysqli_stmt_bind_param success\r\n";
         }
-    }
 
-?>" readonly>
+        if(!mysqli_stmt_execute($pql)) {
+          echo "guess.php:mysqli_stmt_execute failed\r\n";
+          die();
+        } else {
+          if(!mysqli_stmt_bind_result($pql, $id, $token, $guess)) {
+            echo "guess.php:mysqli_stmt_bind_result failed\r\n";
+            //die();
+          } else {
+            if(!mysqli_stmt_fetch($pql)) {
+              echo "guess.php:mysqli_stmt_fetch failed\r\n";
+              echo mysqli_error($conn);
+              //TODO check that post_token and token are the same? pointless?
+              echo $token;
+              echo "aft token";
+              //die();
+            } else {
+              echo $id . "\r\n";
+              echo $token . "\r\n";
+              echo $guess . "\r\n";
+              if($guess) {
+                echo "already guessed\r\n";
+                die();
+              } else {
+                echo "not already guessed\r\n";
+                $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
+                $pql = mysqli_prepare($conn, $sql);
+                if($pql) {
+                  echo "pql = true\r\n";
+                } else {echo "pql = false\r\n";}
+                if(!$pql) die(mysqli_error($conn));
+                if(!mysqli_stmt_bind_param($pql, 's', $post_guess, $id)) {
+                  echo "guess.php:mysqli_stmt_bind_param failed\r\n";
+                  //die();
+                } else {
+                  //echo "guess.php:mysqli_stmt_bind_param success\r\n";
+                }
+
+                if(!mysqli_stmt_execute($pql)) {
+                  echo "guess.php:mysqli_stmt_execute failed\r\n";
+                  //die();
+                } else {
+                  //echo "guess.php:mysqli_stmt_execute success\r\n";
+                }
+
+                if(!mysqli_affected_rows($conn)) {
+                  echo "guess.php:mysqli_affected_rows failed/returned 0\r\n";
+                  //die();
+                } else {
+                  echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
+                }
+              }
+            }
+          }
+        }
+      }
+      //close the database
+      mysqli_close($conn);
+    }
+  }
+
+?>
     </div>
 </div>
 </div>
