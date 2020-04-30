@@ -24,7 +24,7 @@
 
   $rp = strtotime($sRP);
   $gp = strtotime($sGP);
-  $fp = strtotime($sGP);
+  $fp = strtotime($sFP);
 
   // Current Date
   $cd = time();
