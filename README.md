@@ -13,10 +13,11 @@ The Guess Highest Unique number "lottery" involves three processes
  - [] Write additional script to handle changing the mode (run by Cron)
     - []  Not in /public_html
  - [] Test cases
-    - []  Python script to send requests?
+    - []  Python script to send registration requests
+    - [] Python script to send guess requests
  - [] CSV output of previous draw/game
  - [] Payment integration (PayPal?)
- - [] Main overview page
+ - [] Main overview page (maybe just redirect to the current period's page?)
 
 ## Files
 
@@ -31,10 +32,12 @@ token.php
 ```
  - [x] Prevent Duplicate TOKENS
  - [x] Prevent INSERTING new registrations when STATE != 1
+
 ```
 guess.php
 ```
  - [x] Needs to know META->NOP and prevent guessing of invalid numbers
+
 ```
 countdown.php
 ```
@@ -46,12 +49,21 @@ countdown.php
 results.php
 ```
  - [x] Create this, can use existing Codepen version
- - [] Add indication to results page to show tokens
+ - [] Add indication to results page to show tokens (tooltip or popup?)
  - [] Add menu bar (register, countdown, results)
  - [] Make "The Results Are In" text dynamic (META->STATE)
+
 ```
 calculate_winner.php
 ````
  - [x] Create this
  - [] Calculate highest unique
  - [] Send email to winner
+
+```
+panel.php
+```
+ - [] Create this
+ - [] Show NOP
+ - [] Show NOG (number of guesses)
+ - [] Ability to run meta script without remotely accessing xvk3
