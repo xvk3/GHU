@@ -41,60 +41,88 @@
         //echo "   token:";
         //echo $post_token;
 
-        //find user by TOKEN
-        $sql = "SELECT ID, TOKEN, GUESS FROM GHU WHERE TOKEN=?";
+        // Check if guess is in the valid range
+        $sql = "SELECT STATE,GP,NOP FROM META";
         $pql = mysqli_prepare($conn, $sql);
-        if(!mysqli_stmt_bind_param($pql, 's', $post_token)) {
-          echo "guess.php:mysqli_stmt_bind_param failed\r\n";
-          //die();
-        } else {
-          //echo "guess.php:mysqli_stmt_bind_param success\r\n";
-        }
-
         if(!mysqli_stmt_execute($pql)) {
           echo "guess.php:mysqli_stmt_execute failed\r\n";
-          die();
+          //die();
         } else {
-          if(!mysqli_stmt_bind_result($pql, $id, $token, $guess)) {
-            echo "guess.php:mysqli_stmt_bind_result failed\r\n";
+          //echo "guess.php:mysqli_stmt_execute success\r\n";
+        }
+
+        $res = mysqli_stmt_get_result($pql);
+        if(!$res) {
+          echo "guess.php:mysqli_stmt_get_result failed\r\n";
+          //die();
+        } else {
+          //echo "guess.php:mysqli_stmt_get_result success\r\n";
+        }
+
+        $row = mysqli_fetch_assoc($res);
+        if(!$row) {
+          echo "guess.php:mysqli_fetch_assoc failed\r\n";
+          //die();
+        } else {
+          //echo "guess.php:mysqli_fetch_assoc success\r\n";
+        }
+
+        // Check to see if in GP and that the guess is valid
+        if($row['STATE'] == 2 && $post_guess >= 1 && $post_guess <= $row['NOP']) {
+
+          //Find participant by TOKEN
+          $sql = "SELECT ID, TOKEN, GUESS FROM GHU WHERE TOKEN=?";
+          $pql = mysqli_prepare($conn, $sql);
+          if(!mysqli_stmt_bind_param($pql, 's', $post_token)) {
+            echo "guess.php:mysqli_stmt_bind_param failed\r\n";
             //die();
           } else {
-            $cycle = 0;
-            while(mysqli_stmt_fetch($pql)) {
-              echo "guess.php:mysqli_stmt_fetch success call " . $cycle . "\r\n";
-              $cycle = $cycle + 1;
-            }
-            echo $token . "\r\n";
-            echo $guess . "\r\n";
-            if($guess) {
-              echo "already guessed\r\n";
-              die();
+            //echo "guess.php:mysqli_stmt_bind_param success\r\n";
+          }
+
+          if(!mysqli_stmt_execute($pql)) {
+            echo "guess.php:mysqli_stmt_execute failed\r\n";
+            die();
+          } else {
+            if(!mysqli_stmt_bind_result($pql, $id, $token, $guess)) {
+              echo "guess.php:mysqli_stmt_bind_result failed\r\n";
+              //die();
             } else {
-              echo "not already guessed\r\n";
-
-              // TODO need to check that guess is between 1 and META->NOP
-
-              $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
-              $pql = mysqli_prepare($conn, $sql);
-              if(!mysqli_stmt_bind_param($pql, 'ss', $post_guess, $id)) {
-                echo "guess.php:mysqli_stmt_bind_param failed\r\n";
-                //die();
-              } else {
-                //echo "guess.php:mysqli_stmt_bind_param success\r\n";
+              $cycle = 0;
+              while(mysqli_stmt_fetch($pql)) {
+                echo "guess.php:mysqli_stmt_fetch success call " . $cycle . "\r\n";
+                $cycle = $cycle + 1;
               }
-
-              if(!mysqli_stmt_execute($pql)) {
-                echo "guess.php:mysqli_stmt_execute failed\r\n";
-                //die();
+              echo $token . "\r\n";
+              echo $guess . "\r\n";
+              if($guess) {
+                echo "already guessed\r\n";
+                die();
               } else {
-                //echo "guess.php:mysqli_stmt_execute success\r\n";
-              }
+                echo "not already guessed\r\n";
 
-              if(!mysqli_affected_rows($conn)) {
-                echo "guess.php:mysqli_affected_rows failed/returned 0\r\n";
-                //die();
-              } else {
-                echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
+                $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
+                $pql = mysqli_prepare($conn, $sql);
+                if(!mysqli_stmt_bind_param($pql, 'ss', $post_guess, $id)) {
+                  echo "guess.php:mysqli_stmt_bind_param failed\r\n";
+                  //die();
+                } else {
+                  //echo "guess.php:mysqli_stmt_bind_param success\r\n";
+                }
+
+                if(!mysqli_stmt_execute($pql)) {
+                  echo "guess.php:mysqli_stmt_execute failed\r\n";
+                  //die();
+                } else {
+                  //echo "guess.php:mysqli_stmt_execute success\r\n";
+                }
+
+                if(!mysqli_affected_rows($conn)) {
+                  echo "guess.php:mysqli_affected_rows failed/returned 0\r\n";
+                  //die();
+                } else {
+                  echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
+                }
               }
             }
           }
