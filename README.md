@@ -45,4 +45,10 @@ countdown.php
 ```
 results.php
 ```
- - [] Create this, can use existing Codepen version
+ - [x] Create this, can use existing Codepen version
+ - [] Add indication to results page to show tokens
+
+```
+calculate_winner.php
+````
+ - [] Create this, sends email to winner
