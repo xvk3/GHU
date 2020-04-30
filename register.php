@@ -50,26 +50,26 @@
   $pql = mysqli_prepare($conn, $sql);
 
   if(!mysqli_stmt_execute($pql)) {
-    echo "register.php:mysqli_stmt_execute failed\n";
+    echo "register.php:mysqli_stmt_execute failed\r\n";
     die();
   } else {
-    //echo "register.php:mysqli_stmt_execute sucess\n";
+    //echo "register.php:mysqli_stmt_execute sucess\r\n";
   }
 
   $res = mysqli_stmt_get_result($pql);
   if(!$res) {
-    echo "register.php:mysqli_stmt_get_result failed\n";
+    echo "register.php:mysqli_stmt_get_result failed\r\n";
     die();
   } else {
-    //echo "register.php:mysqli_stmt_get_result success\n";
+    //echo "register.php:mysqli_stmt_get_result success\r\n";
   }
 
   $row = mysqli_fetch_assoc($res);
   if(!$row) {
-    echo "register.php:mysqli_fetch_assoc failed\n";
+    echo "register.php:mysqli_fetch_assoc failed\r\n";
     die();
   } else {
-    //echo "register.php:mysqli_fetch_assoc success\n";
+    //echo "register.php:mysqli_fetch_assoc success\r\n";
   }
 
   if($row['STATE'] == 1) {
@@ -82,7 +82,7 @@
     echo "  var t = new Date(";
     echo $row['RP'];
     echo "*1000);\r\n";
-    echo "  if (t > n) d = (t - n);\r\n"; 
+    echo "  if(t > n) d = (t - n);\r\n"; 
     echo "  document.getElementById(\"rpt\").innerHTML = t;\r\n";
     echo "  document.getElementById(\"rpd\").innerHTML = secToHMS(d/1000);\r\n";
     echo "}\r\n";
