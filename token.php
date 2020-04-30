@@ -1,7 +1,7 @@
 <?php
 
 // Generate TOKEN
-function generateToken($conn, $post_email) {
+function generateToken($conn, $post_email, $row_id) {
   //generate 10 bytes of random data - for token
   $length = 10;
   $crypto_secure = 1;
@@ -189,7 +189,7 @@ function generateToken($conn, $post_email) {
       // Get the ID of the INSERTED row
       $row_id = mysqli_insert_id($conn);
       //echo $row_id;
-      generateToken($conn, $post_email); 
+      generateToken($conn, $post_email, $row_id); 
       
     } 
     //close the database
