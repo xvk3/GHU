@@ -30,11 +30,11 @@ register.php
 token.php
 ```
  - [x] Prevent Duplicate TOKENS
- - [] Prevent INSERTING new registrations when STATE != 1
+ - [x] Prevent INSERTING new registrations when STATE != 1
 ```
 guess.php
 ```
- - [] Needs to know META->NOP and prevent guessing of invalid numbers
+ - [x] Needs to know META->NOP and prevent guessing of invalid numbers
 ```
 countdown.php
 ```
@@ -47,8 +47,11 @@ results.php
 ```
  - [x] Create this, can use existing Codepen version
  - [] Add indication to results page to show tokens
-
+ - [] Add menu bar (register, countdown, results)
+ - [] Make "The Results Are In" text dynamic (META->STATE)
 ```
 calculate_winner.php
 ````
- - [] Create this, sends email to winner
+ - [x] Create this
+ - [] Calculate highest unique
+ - [] Send email to winner
