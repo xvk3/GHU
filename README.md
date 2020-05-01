@@ -57,7 +57,7 @@ results.php
 calculate_winner.php
 ````
  - [x] Create this
- - [] Calculate highest unique
+ - [x] Calculate highest unique
  - [] Send email to winner
 
 ```
