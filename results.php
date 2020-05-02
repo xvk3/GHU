@@ -19,12 +19,16 @@
   </head>
   <body onload="parseResults()">
     <div class="vcent noselect">
-      <div id="header">
-        <h1>XVK3<span>.NET</span></h1>
+      <div id="header"> <h1>XVK3<span>.NET</span></h1> </div>
+      <div id="nav">
+        <ul>
+          <li><a href="register.php">Register</a></li>
+          <li><a href="countdown.php">Countdown</a></li>
+          <li><a href="results.php">Results</a></li>
+        </ul>
       </div>
-      <div id="results" class="results">      
-        <div class="head"> <h1> The Results Are In </h1> </div>
-          <div class="hidden"><?php
+      <div id="results" class="results">
+<?php
   // Database conn
   include("ghu_dbconnect.php");
   global $conn;
@@ -59,6 +63,8 @@
     }
 
     if($row['STATE'] != 3) {
+      echo "<div class=\"head\"> <h1> Results will be public on </h1> </div>";
+      echo "<div class=\"hidden\">";
       echo "</div>\r\n";
       echo "<script>\r\n";
       echo "function tr() {\r\n";
@@ -72,6 +78,9 @@
       echo "<p id=\"fpt\">FINAL PERIOD TIME</p>\r\n";
       echo "<p id=\"fpd\">FINAL PERIOD TIME REMAINGING</p>\r\n";
     } else {
+
+      echo "<div class=\"head\"> <h1> The results are in  </h1> </div>";
+      echo "<div class=\"hidden\">";
 
       // Find all entries in GHU with valid TOKEN & GUESS
       $sql = "SELECT GUESS,TOKEN FROM GHU WHERE TOKEN IS NOT NULL AND GUESS IS NOT NULL";
@@ -144,9 +153,8 @@
           return rawGuesses[sortedTokens.indexOf(a)] - rawGuesses[sortedTokens.indexOf(b)];
         });
         
-        //console.log(sortedGuesses);
-        //console.log(sortedTokens);
-
+        console.log(sortedGuesses);
+        console.log(sortedTokens);
         var finalArray = [];
 
         // Build array of unique guesses
@@ -155,15 +163,6 @@
           if(i == 0 || sortedGuesses[i-1] < sortedGuesses[i])  {
             var count = 1;
             var tokens = [];
-
-// Is the "for-if" better than the "while" implementation?
-/*
-      for(var w = i + 1; w < sortedGuesses.length; w++) {
-        if(sortedGuesses[i] == sortedGuesses[w]) {
-          count++;
-          tokens.push(sortedTokens[w]);
-        }
-*/
             var w = i + 1;
             tokens.push(sortedTokens[i]);
             while(sortedGuesses[i] == sortedGuesses[w]) {
@@ -177,20 +176,17 @@
             a.tokens = tokens;
             finalArray.push(a);
       
-          } else {
-            // Skip a duplicate guess
           }
-
         }
-        //console.log(finalArray);
-        //console.log(finalArray[1].count);
+        console.log(finalArray);
+        console.log(finalArray[1].count);
 
         var highestUnique = undefined;
         // Build elements
         for(var i = finalArray.length-1; i >= 0; i--) {
           // var item = "<div class='result' id='result" + i + "' " +
           //            "tabindex='0' tooltip-position='bottom'>test</div>";
-          var item = "<div class='result' id='result" + i + "'>" + finalArray[i].value + " guessed " + finalArray[i].count + " times</div>";
+          var item = "<div class='result' id='result" + i + "'>" + finalArray[i].value + "</br>" + finalArray[i].count + "</div>";
   
           // Add element 
           $(".results .container").append(item);
