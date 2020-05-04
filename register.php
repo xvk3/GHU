@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>GHU - Guess Highest Unique Registration</title>
     
@@ -21,13 +21,9 @@
       var rseconds = Math.floor(seconds % 60);
       return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + rseconds.toString().padStart(2, '0');
     }
-    </script>
-
-  
-</head>
-
-<body onload="tr()">
-
+    </script>  
+  </head>
+  <body onload="tr()">
   <div class="vcent noselect">
     <div id="header"> <h1>XVK3<span>.NET</span></h1> </div>
     <div id="nav">
@@ -38,7 +34,6 @@
       </ul>
     </div>
     <div class="register">
-
 <?php
 
   // Database conn
@@ -74,6 +69,10 @@
 
   if($row['STATE'] == 1) {
     echo "<p>Registration Active</p>\r\n";
+    echo "<p>After registering keep a copy of the supplied token</p>\r\n";
+    echo "<pYou will need your token to submit your guess on Wednesday</p>\r\n";
+    echo "<p>The goal is to guess the highest unique (only guessed by yourself) number.</p>\r\n";
+    echo "<p>Good luck!</p>\r\n";
     echo "<form action=\"token.php\" method=\"post\">\r\n";
   } else {
     echo "<script>\r\n";
