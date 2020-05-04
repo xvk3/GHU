@@ -32,6 +32,7 @@ token.php
 ```
  - [x] Prevent Duplicate TOKENS
  - [x] Prevent INSERTING new registrations when STATE != 1
+ - [] Should token.php update META->NOP each time a new participant registers ?
 
 ```
 guess.php
@@ -44,6 +45,7 @@ countdown.php
  - [] Timezones, Server Time, Local Time
     - See test.php
  - [x] Limit form input between 1 - META->NOP
+ - [] Beter display the allowed guessing range
 
 ```
 results.php
@@ -58,6 +60,7 @@ calculate_winner.php
 ````
  - [x] Create this
  - [x] Calculate highest unique
+ - [x] Update META->WTOKEN
  - [] Send email to winner
 
 ```

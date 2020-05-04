@@ -10,9 +10,9 @@
 
  
   When this script runs on Thursday @ midnight:
-  The current date $ct will be greater than $fp
+  The current date $cd will be greater than $fp
     While the above is true add 7 days to $st
-  Until $fp is greater than $ct
+  Until $fp is greater than $cd
   $fp is now the end of the guessing period and the start of the final period
   */
 
@@ -137,10 +137,41 @@
     echo $row['EMAIL'] . "\r\n";
     echo $row['TOKEN'] . "\r\n";
 
-    // TODO
-    // Update META with winning token and email
-    // Email winner
+    $sql = "UPDATE META SET WTOKEN=? WHERE TRUE";
+    $pql = mysqli_prepare($conn, $sql);
+    
+    if(!mysqli_stmt_bind_param($pql, 's', $row['TOKEN'])) {
+      echo "calculate_winner:mysqli_stmt_bind_param failed\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner:mysqli_stmt_bind_param success\r\n";
+    }
 
+    if(!mysqli_stmt_execute($pql)) {
+      echo "calculate_winner.php:mysqli_stmt_execute failed\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner.php:mysqli_stmt_execute success\r\n";
+    }
+
+    $res = mysqli_stmt_get_result($pql);
+    if(!$res) {
+      echo "calculate_winner.php:mysqli_stmt_get_result failed\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner.php:mysqli_stmt_get_result success\r\n";
+    }
+
+    if($res->num_rows == 0) {
+      echo "calculate_winner.php:res->num_rows == 0\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner.php:mysqli_stmt_get_result $res success\r\n";
+      echo "calculate_winner.php " . $row['TOKEN'] . "\r\n";
+    }
+
+    // Email winner
+  
   }
   mysqli_close($conn);
 
