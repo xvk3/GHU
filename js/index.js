@@ -1,0 +1,135 @@
+function CopyToClipboard(showNotification, notificationText) {
+  var $temp = $("<input>");
+	var value = $('#token').val();
+  $("body").append($temp);
+  $temp.val(value).select();
+  document.execCommand("copy");
+  $temp.remove();
+  if (typeof showNotification === "undefined") {
+  	showNotification = true;
+  }
+  if (typeof notificationText === "undefined") {
+  	notificationText = "No text specified";
+  }
+  var notificationTag = $("div.copy-notification");
+  if (showNotification && notificationTag.length == 0) {
+  	notificationTag = $("<div/>", {
+  		class: "copy-notification",
+  		text: notificationText
+  	});
+  	$("body").append(notificationTag);
+  	notificationTag.fadeIn("slow", function() {
+  		setTimeout(function() {
+  			notificationTag.fadeOut("slow", function() {
+  				notificationTag.remove();
+  			});
+  		}, 1000);
+  	});
+  }
+}
+
+function parseResults() {
+  var resultDataRaw = $("div.hidden").text();
+  // If there are no guesses / not in FP
+  if (resultDataRaw.length == 0) return tr();
+  var resultData = $("div.hidden").text().split(",");
+  var rawTokens = [];
+  var rawGuesses = [];
+  for (var i = 0; i < resultData.length; i++) {
+    rawTokens.push(resultData[i].split(":")[0]);
+    rawGuesses.push(resultData[i].split(":")[1]);
+  }
+
+  var sortedTokens = rawTokens.slice(0);
+  var sortedGuesses = rawGuesses.slice(0);
+  sortedGuesses.sort(function (a, b) {
+    return (
+      rawGuesses[rawGuesses.indexOf(a)] - rawGuesses[rawGuesses.indexOf(b)]
+    );
+  });
+  sortedTokens.sort(function (a, b) {
+    return (
+      rawGuesses[sortedTokens.indexOf(a)] - rawGuesses[sortedTokens.indexOf(b)]
+    );
+  });
+  console.log(sortedGuesses);
+  console.log(sortedTokens);
+  var finalArray = [];
+  var w = 1;
+  var s = 0;
+  // Build array of unique guesses
+  for (var i = 0; i < sortedGuesses.length; i++) {
+    console.log("if(" + sortedGuesses[i] + " > " + s + ")");
+    if (Number(sortedGuesses[i]) > Number(s)) {
+      console.log("entered do-while");
+      var count = 0;
+      var tokens = [];
+      s = sortedGuesses[i];
+      w = i;
+      do {
+        count++;
+        console.log(
+          "updating count for " + sortedGuesses[i] + ", count = " + count
+        );
+        tokens.push(sortedTokens[w]);
+        w++;
+      } while (sortedGuesses[i] == sortedGuesses[w]);
+      var a = new Object();
+      a.value = sortedGuesses[i];
+      a.count = count;
+      a.tokens = tokens;
+      finalArray.push(a);
+    } else {
+      // Skip a duplicate guess
+    }
+  }
+  console.log(finalArray);
+  console.log(finalArray[1].count);
+  var highestUnique = undefined;
+  // Build elements
+  for (var i = finalArray.length - 1; i >= 0; i--) {
+    var item =
+      "<div class='result' id='result" +
+      i +
+      "'>" +
+      "<h2><span>" +
+      finalArray[i].value +
+      "</span></h2>" +
+      "<p><span>" +
+      finalArray[i].count +
+      "</span></p>" +
+      "</div>";
+    // Add element
+    $(".results .container").append(item);
+    // Style element
+    if (finalArray[i].count == 1) {
+      if (highestUnique == undefined) {
+        $("#result" + i).addClass("winner");
+        highestUnique = finalArray[i].tokens[0];
+        //console.log(highestUnique);
+      } else {
+        $("#result" + i).addClass("unique");
+      }
+    }
+    if (finalArray[i].count > 1 && finalArray[i].count <= 2) {
+      $(".result:last").addClass("rare");
+    }
+    if (finalArray[i].count > 2) {
+      $("#result" + i).addClass("basic");
+    }
+  }
+  postInject();
+}
+
+function postInject() {
+  $(".result span").each(function () {
+    var el = $(this);
+    var textLength = el.html().length;
+
+    if (textLength >= 3) {
+      el.css("font-size", "1.25em");
+    } else {
+      el.css("font-size", "1.75em");
+    }
+  });
+}

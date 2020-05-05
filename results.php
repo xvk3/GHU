@@ -20,7 +20,9 @@
   </head>
   <body onload="parseResults()">
     <div class="vcent noselect">
-      <div id="header"> <h1>XVK3<span>.NET</span></h1> </div>
+      <div id="header">
+        <h1>XVK3<span>.NET</span></h1>
+      </div>
       <div id="nav">
         <ul>
           <li><a href="register.php">Register</a></li>
@@ -123,92 +125,5 @@
           </div>
         </div>
       </div>
-      <script>
-      function parseResults() {
-        var resultDataRaw = $("div.hidden").text();
-        // If there are no guesses / not in FP
-        if(resultDataRaw.length == 0) return tr();
-
-        var resultData = $("div.hidden").text().split(',');
-
-        var rawTokens = [];
-        var rawGuesses = [];
-        for(var i = 0; i < resultData.length; i++)  {
-          rawTokens.push(resultData[i].split(':')[0]);
-          rawGuesses.push(resultData[i].split(':')[1]);
-        }
-        // rawTokens = array of tokens ["T0", "T1", "T2"...
-        // rawGuesses = array of guesses ["1", "3", "1"...
-        //console.log(rawTokens);
-        //console.log(rawGuesses);
-
-        // Duplicate both arrays
-        var sortedTokens = rawTokens.slice(0);
-        var sortedGuesses = rawGuesses.slice(0);
-
-        sortedGuesses.sort(function(a, b) {
-          return rawGuesses[rawGuesses.indexOf(a)] - rawGuesses[rawGuesses.indexOf(b)];
-        });
-
-        sortedTokens.sort(function(a, b) {
-          return rawGuesses[sortedTokens.indexOf(a)] - rawGuesses[sortedTokens.indexOf(b)];
-        });
-        
-        console.log(sortedGuesses);
-        console.log(sortedTokens);
-        var finalArray = [];
-
-        // Build array of unique guesses
-        for(var i = 0; i < sortedGuesses.length; i++) {
-
-          if(i == 0 || sortedGuesses[i-1] < sortedGuesses[i])  {
-            var count = 1;
-            var tokens = [];
-            var w = i + 1;
-            tokens.push(sortedTokens[i]);
-            while(sortedGuesses[i] == sortedGuesses[w]) {
-              count++;
-              tokens.push(sortedTokens[w]);
-              w++;
-            }
-            var a = new Object();
-            a.value = sortedGuesses[i];
-            a.count = count;
-            a.tokens = tokens;
-            finalArray.push(a);
-      
-          }
-        }
-        console.log(finalArray);
-        console.log(finalArray[1].count);
-
-        var highestUnique = undefined;
-        // Build elements
-        for(var i = finalArray.length-1; i >= 0; i--) {
-          // var item = "<div class='result' id='result" + i + "' " +
-          //            "tabindex='0' tooltip-position='bottom'>test</div>";
-          var item = "<div class='result' id='result" + i + "'>" + finalArray[i].value + "</br>" + finalArray[i].count + "</div>";
-  
-          // Add element 
-          $(".results .container").append(item);
-          // Style element
-          if(finalArray[i].count == 1) {
-            if(highestUnique == undefined) {
-              $("#result" + i).addClass("winner");
-              highestUnique = finalArray[i].tokens[0];
-              //console.log(highestUnique);
-            } else {
-              $("#result" + i).addClass("unique");
-            }
-          }
-          if(finalArray[i].count > 1 && finalArray[i].count <= 2) {
-              $(".result:last").addClass("rare");
-          }
-          if(finalArray[i].count > 2) {
-            $("#result" + i).addClass("basic");
-          }
-        }
-      }
-    </script>  
   </body>
 </html>
