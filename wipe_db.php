@@ -32,16 +32,24 @@
   // While "Registration Period" < "Current Date"
   while($rp < $cd) {
     $rp = $rp + 604800;
-    echo "Moved to " . date('Y/m/d', $rp) . "\r\n";
+    echo "RP moved to " . date('Y/m/d', $rp) . "\r\n";
+  }
+
+  // while "Guessing Period" < "Current Date"
+  while($gp < $cd) {
+    $gp = $gp + 604800;
+    echo "GP moved to " . date('Y/m/d', $gp) . "\r\n";
   }
 
   // While "Final Period" < "Current Date"
   while($fp < $cd) {
     $fp = $fp + 604800;
+    echo "FP moved to " . date('Y/m/d', $fp) . "\r\n";
  }
 
-  echo "New Registrion Date = " . date('Y/m/d', $rp) . "\r\n";
-  echo "New Results    Date = " . date('Y/m/d', $fp) . "\r\n";
+  echo "New Registration Date = " . date('Y/m/d', $rp) . "\r\n";
+  echo "New Guessing     Date = " . date('Y/m/d', $gp) . "\r\n";
+  echo "New Results      Date = " . date('Y/m/d', $fp) . "\r\n";
 
   include("ghu_dbconnect.php");
   global $conn;
@@ -50,7 +58,7 @@
     $sql = "DELETE FROM GHU WHERE 1";
     mysqli_query($conn, $sql);
 
-    $sql = "UPDATE META SET MAIN=0, STATE=0, RP=$rp, GP=$gp WHERE TRUE";
+    $sql = "UPDATE META SET MAIN=0, STATE=0, RP=$rp, GP=$gp, FP=$fp  WHERE TRUE";
     mysqli_query($conn, $sql);
 
     mysqli_close($conn);
