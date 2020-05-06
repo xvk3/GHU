@@ -9,14 +9,6 @@
     <link rel="stylesheet" href="css/style.css">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script src="/js/index.js"></script>
-    <script>
-    function secToHMS(seconds) {
-      var hours = Math.floor(seconds / 60 / 60);
-      var minutes = Math.floor(seconds / 60) - (hours * 60);
-      var rseconds = Math.floor(seconds % 60);
-      return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + rseconds.toString().padStart(2, '0');
-    }
-    </script>
   </head>
   <body onload="parseResults()">
     <div class="vcent noselect">
@@ -122,6 +114,11 @@
 ?>
           <div class="container">
             <!--generate elements -->
+          </div>
+          <div id="info-footer">
+            <div id="token-placement">Tokens:
+              <p></p>
+            </div>
           </div>
         </div>
       </div>

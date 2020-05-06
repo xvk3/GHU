@@ -53,7 +53,7 @@ countdown.php
 results.php
 ```
  - [x] Create this, can use existing Codepen version
- - [] Add indication to results page to show tokens (tooltip or popup?)
+ - [x] Add indication to results page to show tokens
  - [x] Add menu bar (register, countdown, results)
  - [x] Make "The Results Are In" text dynamic (META->STATE)
 
