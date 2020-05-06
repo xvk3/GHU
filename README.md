@@ -10,11 +10,11 @@ The Guess Highest Unique number "lottery" involves three processes
  - [] Add instructions or guidance to register.php or main overview
  - [] Update files based on new PHP knowledge
  - [] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS, winner's TOKEN
- - [] Rework Crontab to change modes Registration/Guess/Results at correct times (midnight?)
- - [] Write additional script to handle changing the mode (run by Cron)
-    - []  Not in /public_html
+ - [x] Rework Crontab to change modes Registration/Guess/Results at correct times (midnight?)
+ - [x] Write additional script to handle changing the mode (run by Cron)
+    - [x]  Not in /public_html
  - [] Test cases
-    - []  Python script to send registration requests
+    - [] Python script to send registration requests
     - [] Python script to send guess requests
  - [] CSV output of previous draw/game
  - [] Payment integration (PayPal?)
