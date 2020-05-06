@@ -39,35 +39,34 @@
   include("ghu_dbconnect.php");
   global $conn;
 
-
   $sql = "SELECT STATE,GP,NOP FROM META";
   $pql = mysqli_prepare($conn, $sql);
 
   if(!mysqli_stmt_execute($pql)) {
-    echo "register.php:mysqli_stmt_execute failed\n";
+    echo "register.php:mysqli_stmt_execute failed\r\n";
     die();
   } else {
-    //echo "register.php:mysqli_stmt_execute sucess\n";
+    //echo "register.php:mysqli_stmt_execute sucess\r\n";
   }
 
   $res = mysqli_stmt_get_result($pql);
   if(!$res) {
-    echo "register.php:mysqli_stmt_get_result failed\n";
+    echo "register.php:mysqli_stmt_get_result failed\r\n";
     die();
   } else {
-    //echo "register.php:mysqli_stmt_get_result success\n";
+    //echo "register.php:mysqli_stmt_get_result success\r\n";
   }
 
   $row = mysqli_fetch_assoc($res);
   if(!$row) {
-    echo "register.php:mysqli_fetch_assoc failed\n";
+    echo "register.php:mysqli_fetch_assoc failed\r\n";
     die();
   } else {
-    //echo "register.php:mysqli_fetch_assoc success\n";
+    //echo "register.php:mysqli_fetch_assoc success\r\n";
   }
 
   if($row['STATE'] == 2) {
-    echo "<p>Submission Active</p>\r\n";
+    echo "<p>Submission Active Guess 1 - " . $row['NOP'] . "</p>\r\n";
     echo "<form action=\"guess.php\" method=\"post\">\r\n";
   } else {
     echo "<script>\r\n";
