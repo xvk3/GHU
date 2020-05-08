@@ -58,7 +58,7 @@
   if($row['STATE'] == 1) {
     echo "<h1>Registration Active</h1>\r\n";
     echo "<p>After registering keep a copy of the supplied token</p>\r\n";
-    echo "<pYou <b>will</b> need your token to submit your guess on when the Guessing Countdown completes</p>\r\n";
+    echo "<pYou <b>will</b> need your token to submit your guess when the Guessing Countdown completes</p>\r\n";
     echo "<p>The goal is to guess the highest unique number.</p>\r\n";
     echo "<p>Good luck!</p>\r\n";
     echo "<form action=\"token.php\" method=\"post\">\r\n";
