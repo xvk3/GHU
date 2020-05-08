@@ -2,6 +2,17 @@ $(document).ready(function () {
   //globals
   var finalArray = [];
 
+  $(".input").focusin(function() {
+    $(this).find("span").animate({
+      opacity: "0"
+    }, 200);
+  });
+  $(".input").focusout(function() {
+    $(this).find("span").animate({
+      opacity: "1"
+    }, 300);
+  });
+
   function secToHMS(seconds) {
     var hours = Math.floor(seconds / 60 / 60);
     var minutes = Math.floor(seconds / 60) - hours * 60;
@@ -123,6 +134,7 @@ $(document).ready(function () {
         $("#result" + i).addClass("basic");
       }
     }
+    postInject();
   }
 
   function postInject() {
@@ -173,7 +185,7 @@ $(document).ready(function () {
   });
 
   onloadCSS();
-  parseResults();
-  postInject();
+  //parseResults();
+  //postInject();
   tr();
 }); //document ready
