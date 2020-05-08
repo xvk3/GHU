@@ -78,8 +78,7 @@
           echo $row['NOP'];
           echo "\" min=\"1\" max=\"";
           echo $row['NOP'];
-          echo "\"";
-          ?> required="required" />
+          ?>" required="required" />
           <span><i class="fa fa-question"></i></span>
         </div>
         <button type="submit" class="btn btn-primary btn-block btn-large">Submit</button>

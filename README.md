@@ -7,7 +7,7 @@ The Guess Highest Unique number "lottery" involves three processes
 
 ## TODO:
 
- - [] Add instructions or guidance to register.php or main overview
+ - [x] Add instructions or guidance to register.php or main overview
  - [] Update files based on new PHP knowledge
  - [] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS, winner's TOKEN
  - [x] Rework Crontab to change modes Registration/Guess/Results at correct times (midnight?)
@@ -20,6 +20,7 @@ The Guess Highest Unique number "lottery" involves three processes
  - [] Payment integration (PayPal?)
  - [] Main overview page (maybe just redirect to the current period's page?)
    - Ajax could be used to load the correct form depending on period ?
+ - [] Create the SQL command to generate the GHU and META tables
 
 ## Files
 
