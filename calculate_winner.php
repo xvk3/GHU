@@ -43,7 +43,7 @@
     mysqli_query($conn, $sql);
     // TODO change the above to use prepared statements
     
-    $sql = "SELECT ID,GUESS FROM GHU WHERE TRUE";
+    $sql = "SELECT ID,GUESS,TOKEN FROM GHU WHERE TRUE";
     $pql = mysqli_prepare($conn, $sql);
     if(!mysqli_stmt_execute($pql)) {
       echo "calculate_winner.php:mysqli_stmt_execute failed\r\n";
@@ -61,11 +61,15 @@
     }
     $nr = $res->num_rows;
 
+    // Generate CSV of results (guess, token)
+    $file = fopen("/home/xvk3/public_html/" . date('Ymd', time()) . ".csv");
     $arr = array();
     if($nr > 0) {
       while($row = mysqli_fetch_assoc($res)) {
+        fwrite($file, $row['TOKEN'] . "," . $row['GUESS'] . "\r\n");
         $arr[] = $row['GUESS'];
       }
+      fclose($file);
     } else {
       echo "calculate_winner.php:num_rows <= 0\r\n";
     }
