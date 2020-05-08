@@ -9,7 +9,7 @@ The Guess Highest Unique number "lottery" involves three processes
 
  - [x] Add instructions or guidance to register.php or main overview
  - [] Update files based on new PHP knowledge
- - [] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS, winner's TOKEN
+ - [] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS, winner's TOKEN, winner's EMAIL, calculate_winner.php's CSV filename
  - [x] Rework Crontab to change modes Registration/Guess/Results at correct times (midnight?)
  - [x] Write additional script to handle changing the mode (run by Cron)
     - [x]  Not in /public_html
@@ -64,6 +64,7 @@ calculate_winner.php
  - [x] Create this
  - [x] Calculate highest unique
  - [x] Update META->WTOKEN
+ - [x] Generate CSV
  - [] Send email to winner
 
 ```
