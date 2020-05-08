@@ -112,10 +112,10 @@
               <p></p>
             </div>
           </div>
-          <div id="context">
-            <p>When the Final Countdown above complete the results will be displayed!</p>
-            <p>Hover over a number to see how many guesses it got</p>
-          </div>
+        </div>
+        <div id="context">
+          <p>When the Final Countdown above completes the results will be displayed!</p>
+          <p>Hover over a number to see how many guesses it got</p>
         </div>
       </div>
   </body>
