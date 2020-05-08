@@ -22,11 +22,14 @@ $(document).ready(function () {
   }
 
   function tr() {
-    var n = new Date();
-    var t = new Date(1588896000 * 1000);
-    if (t > n) d = t - n;
-    document.getElementById("fpt").innerHTML = t;
-    document.getElementById("fpd").innerHTML = secToHMS(d / 1000);
+    i = document.getElementById("phpi").innerHTML;
+    if(i) {
+      var n = new Date();
+      var t = new Date(i * 1000);
+      if (t > n) d = t - n;
+      document.getElementById("td").innerHTML = t;
+      document.getElementById("tr").innerHTML = secToHMS(d / 1000);
+    } else { parseResults();} 
   }
 
   function parseResults() {
@@ -61,18 +64,18 @@ $(document).ready(function () {
     var s = 0;
     // Build array of unique guesses
     for (var i = 0; i < sortedGuesses.length; i++) {
-      console.log("if(" + sortedGuesses[i] + " > " + s + ")");
+      //console.log("if(" + sortedGuesses[i] + " > " + s + ")");
       if (Number(sortedGuesses[i]) > Number(s)) {
-        console.log("entered do-while");
+        //console.log("entered do-while");
         var count = 0;
         var tokens = [];
         s = sortedGuesses[i];
         w = i;
         do {
           count++;
-          console.log(
-            "updating count for " + sortedGuesses[i] + ", count = " + count
-          );
+          //console.log(
+          //  "updating count for " + sortedGuesses[i] + ", count = " + count
+          //);
           tokens.push(sortedTokens[w]);
           w++;
         } while (sortedGuesses[i] == sortedGuesses[w]);
@@ -85,8 +88,8 @@ $(document).ready(function () {
         // Skip a duplicate guess
       }
     }
-    console.log(finalArray);
-    console.log(finalArray[1].count);
+    //console.log(finalArray);
+    //console.log(finalArray[1].count);
     var highestUnique = undefined;
     // Build elements
     for (var i = finalArray.length - 1; i >= 0; i--) {
@@ -172,4 +175,5 @@ $(document).ready(function () {
   onloadCSS();
   parseResults();
   postInject();
+  tr();
 }); //document ready

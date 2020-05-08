@@ -422,6 +422,15 @@ button:hover, .form button:active, .form button:focus {
 #countdown p {
 	font-size: 60px;
 }
+.resultsp {
+	background: rgb(145, 145, 145);
+	background: linear-gradient(45deg, rgba(145, 145, 145, 1) 0%, rgba(145, 145, 145, 1) 50%, rgba(183, 187, 182, 1) 50%, rgba(183, 187, 182, 1) 100%);
+  width: 100%;
+  min-height: 200px;	
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
 .results {
 	
   background: #f2f2f2;

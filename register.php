@@ -4,26 +4,14 @@
   <head>
     <meta charset="UTF-8">
     <title>GHU - Guess Highest Unique Registration</title>
-    
     <link rel="stylesheet" href="/css/style.css">
-    <!-- have to link to this stylesheet for now -->
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="/css/google_font_css.css">
-  
-    <!-- this is the correct order for js files -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/index.js"></script>
-    <script>
-    function secToHMS(seconds) {
-      var hours = Math.floor(seconds / 60 / 60);
-      var minutes = Math.floor(seconds / 60) - (hours * 60);
-      var rseconds = Math.floor(seconds % 60);
-      return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + rseconds.toString().padStart(2, '0');
-    }
-    </script>  
   </head>
-  <body onload="tr()">
+  <body onload="tr();">
   <div class="vcent noselect">
     <div id="header"> <h1>XVK3<span>.NET</span></h1> </div>
     <div id="nav">
@@ -68,26 +56,17 @@
   }
 
   if($row['STATE'] == 1) {
-    echo "<p>Registration Active</p>\r\n";
+    echo "<h1>Registration Active</h1>\r\n";
     echo "<p>After registering keep a copy of the supplied token</p>\r\n";
-    echo "<pYou will need your token to submit your guess on Wednesday</p>\r\n";
-    echo "<p>The goal is to guess the highest unique (only guessed by yourself) number.</p>\r\n";
+    echo "<pYou <b>will</b> need your token to submit your guess on when the Guessing Countdown completes</p>\r\n";
+    echo "<p>The goal is to guess the highest unique number.</p>\r\n";
     echo "<p>Good luck!</p>\r\n";
     echo "<form action=\"token.php\" method=\"post\">\r\n";
   } else {
-    echo "<script>\r\n";
-    echo "function tr() {\r\n";
-    echo "  var n = new Date;\r\n";
-    echo "  var t = new Date(";
-    echo $row['RP'];
-    echo "*1000);\r\n";
-    echo "  if(t > n) d = (t - n);\r\n"; 
-    echo "  document.getElementById(\"rpt\").innerHTML = t;\r\n";
-    echo "  document.getElementById(\"rpd\").innerHTML = secToHMS(d/1000);\r\n";
-    echo "}\r\n";
-    echo "</script>\r\n";
-    echo "<p id=\"rpt\">REGISTRATION PERIOD TIME</p>\r\n";
-    echo "<p id=\"rpd\">REGISTRATION PERIOD TIME REMAINING</p>\r\r";
+    echo "<div class=\"head\"> <h1> Registration will be active on </h1> </div>\r\n";
+    echo "<p id=\"td\">REGISTRATION PERIOD TIME</p>\r\n";
+    echo "<p id=\"tr\">REGISTRATION PERIOD TIME REMAINING</p>\r\r";
+    echo "<p hidden id=\"phpi\">" . $row['RP'] . "</p>\r\n";
     echo "<form>\r\n";
   }
 
@@ -105,7 +84,7 @@
       </form>
     </div>
     <div id="context">
-      <p>Guess Highest Unique Lottery</p>
+      <p>Register to participate in the GHU Lottery! When the Guessing Countdown completes each player is prompted to guess a number between 1 and the number of registered participants. The winner, determined when the Final Countdown completes, is defined as..</br><b>The player with the highest unique guess (only submitted by 1 participant)</b></p>
     </div>
   </div>
 

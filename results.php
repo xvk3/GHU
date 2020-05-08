@@ -10,7 +10,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script src="/js/index.js"></script>
   </head>
-  <body onload="parseResults()">
+  <body onload="tr();">
     <div class="vcent noselect">
       <div id="header">
         <h1>XVK3<span>.NET</span></h1>
@@ -22,7 +22,6 @@
           <li><a href="results.php">Results</a></li>
         </ul>
       </div>
-      <div id="results" class="results">
 <?php
   // Database conn
   include("ghu_dbconnect.php");
@@ -58,24 +57,17 @@
     }
 
     if($row['STATE'] != 3) {
-      echo "<div class=\"head\"> <h1> Results will be public on </h1> </div>";
-      echo "<div class=\"hidden\">";
-      echo "</div>\r\n";
-      echo "<script>\r\n";
-      echo "function tr() {\r\n";
-      echo "  var n = new Date;\r\n";
-      echo "  var t = new Date(" . $row['FP'] . "*1000);\r\n";
-      echo "  if(t > n) d = (t - n);\r\n";
-      echo "    document.getElementById(\"fpt\").innerHTML = t\r\n";
-      echo "    document.getElementById(\"fpd\").innerHTML = secToHMS(d/1000);\r\n";
-      echo "  }\r\n";
-      echo "</script>\r\n";
-      echo "<p id=\"fpt\">FINAL PERIOD TIME</p>\r\n";
-      echo "<p id=\"fpd\">FINAL PERIOD TIME REMAINGING</p>\r\n";
+      echo "<div class=\"register\">\r\n";
+      echo "  <div class=\"head\"> <h1> Results will be public on </h1> </div>\r\n";
+      echo "  <div class=\"hidden\">\r\n";
+      echo "  </div>\r\n";
+      echo "  <p id=\"td\">FINAL PERIOD TIME</p>\r\n";
+      echo "  <p id=\"tr\">FINAL PERIOD TIME REMAINGING</p>\r\n";
+      echo "  <p hidden id=\"phpi\">" . $row['FP'] . "</p>\r\n";
     } else {
-
-      echo "<div class=\"head\"> <h1> The results are in  </h1> </div>";
-      echo "<div class=\"hidden\">";
+      echo "      <div id=\"resultsp\" class=\"results\">\r\n";
+      echo "       <div class=\"head\"> <h1> The results are in  </h1> </div>";
+      echo "       <div class=\"hidden\">";
 
       // Find all entries in GHU with valid TOKEN & GUESS
       $sql = "SELECT GUESS,TOKEN FROM GHU WHERE TOKEN IS NOT NULL AND GUESS IS NOT NULL";

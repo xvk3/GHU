@@ -9,17 +9,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
-    <script>
-    function secToHMS(seconds) {
-      var hours = Math.floor(seconds / 60 / 60);
-      var minutes = Math.floor(seconds / 60) - (hours * 60);
-      var rseconds = Math.floor(seconds % 60);
-      return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + rseconds.toString().padStart(2, '0');
-    }
-    </script>
+    <script src="/js/index.js"></script>
   </head>
-  <body onload="tr()">
+  <body onload="tr();">
     <div class="vcent noselect">
       <div id="header">
         <h1>XVK3<span>.NET</span></h1>
@@ -66,22 +58,13 @@
   }
 
   if($row['STATE'] == 2) {
-    echo "<p>Submission Active Guess 1 - " . $row['NOP'] . "</p>\r\n";
+    echo "<div class=\"head\"> <h1>Submission Active Guess between 1 and " . $row['NOP'] . "</h1> </div>\r\n";
     echo "<form action=\"guess.php\" method=\"post\">\r\n";
   } else {
-    echo "<script>\r\n";
-    echo "function tr() {\r\n";
-    echo "  var n = new Date;\r\n";
-    echo "  var t = new Date(";
-    echo $row['GP'];
-    echo "*1000);\r\n";
-    echo "  if (t > n) d = (t - n);\r\n"; 
-    echo "  document.getElementById(\"gpt\").innerHTML = t;\r\n";
-    echo "  document.getElementById(\"gpd\").innerHTML = secToHMS(d/1000);\r\n";
-    echo "}\r\n";
-    echo "</script>\r\n";
-    echo "<p id=\"gpt\">GUESSING PERIOD TIME</p>\r\n";
-    echo "<p id=\"gpd\">GUESSING PERIOD TIME REMAINING</p>\r\r";
+    echo "<div class=\"head\"> <h1>Submission will be active on </h1> </div>\r\n";
+    echo "<p id=\"td\">GUESSING PERIOD TIME</p>\r\n";
+    echo "<p id=\"tr\">GUESSING PERIOD TIME REMAINING</p>\r\r";
+    echo "<p hidden id=\"phpi\">" . $row['GP'] . "</p>\r\n";
     echo "<form>\r\n";
   }
     ?>
@@ -110,7 +93,8 @@
     </div>
 
     <div id="context">
-      <p>GHU - Number Submission</p>
+      <p>When the Guessing Countdown above completes submit your guess!</p>
+      <p>You'll need your token supplied during the Registration Period</p>
     </div>
   </div>
 
