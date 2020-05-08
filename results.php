@@ -65,9 +65,9 @@
       echo "  <p id=\"tr\">FINAL PERIOD TIME REMAINGING</p>\r\n";
       echo "  <p hidden id=\"phpi\">" . $row['FP'] . "</p>\r\n";
     } else {
-      echo "      <div id=\"resultsp\" class=\"results\">\r\n";
-      echo "       <div class=\"head\"> <h1> The results are in  </h1> </div>";
-      echo "       <div class=\"hidden\">";
+      echo "      <div id=\"results\" class=\"results\">\r\n";
+      echo "       <div class=\"head\"> <h1> The results are in  </h1> </div>\r\n";
+      echo "       <div class=\"hidden\" >";
 
       // Find all entries in GHU with valid TOKEN & GUESS
       $sql = "SELECT GUESS,TOKEN FROM GHU WHERE TOKEN IS NOT NULL AND GUESS IS NOT NULL";
@@ -95,7 +95,7 @@
         while($row = mysqli_fetch_assoc($res)) {
           echo "," . $row['TOKEN'] . ":" . $row['GUESS']; 
         }
-        echo "</div>";
+        echo "\r\n       </div>";
       } else {
         echo "results.php:mysqli_fetch_assoc failed\r\n";
         echo "nobody submitted a guess\r\n";
@@ -104,19 +104,19 @@
     mysqli_close($conn);
   }
 ?>
-          <div class="container">
-            <!--generate elements -->
-          </div>
-          <div id="info-footer">
-            <div id="token-placement">Tokens:
-              <p></p>
-            </div>
-          </div>
+        <div class="container">
+          <!--generate elements -->
         </div>
-        <div id="context">
-          <p>When the Final Countdown above completes the results will be displayed!</p>
-          <p>Hover over a number to see how many guesses it got</p>
+        <div id="info-footer">
+          <div id="token-placement">Tokens:
+            <p></p>
+          </div>
         </div>
       </div>
+      <div id="context">
+        <p>When the Final Countdown above completes the results will be displayed!</p>
+        <p>Hover over a number to see how many guesses it got</p>
+      </div>
+    </div>
   </body>
 </html>

@@ -33,14 +33,20 @@ $(document).ready(function () {
   }
 
   function tr() {
-    i = document.getElementById("phpi").innerHTML;
-    if(i) {
+    var success = true;
+    try {
+      i = document.getElementById("phpi").innerHTML;
+    } catch {
+      success = false;
+      parseResults();
+    }
+    if(success) {
       var n = new Date();
       var t = new Date(i * 1000);
       if (t > n) d = t - n;
       document.getElementById("td").innerHTML = t;
       document.getElementById("tr").innerHTML = secToHMS(d / 1000);
-    } else { parseResults();} 
+    }
   }
 
   function parseResults() {
