@@ -10,6 +10,8 @@ The Guess Highest Unique number "lottery" involves three processes
  - [x] Add instructions or guidance to register.php or main overview
  - [] Update files based on new PHP knowledge
  - [] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS, winner's TOKEN, winner's EMAIL, calculate_winner.php's CSV filename
+ - [] Make new table to hold data on historial GHU results, HGHU->{ID,DATE,WTOKEN,WGUESS,CSV}
+   - [] results.php can read the newest row of this table and display results accordingly
  - [x] Rework Crontab to change modes Registration/Guess/Results at correct times (midnight?)
  - [x] Write additional script to handle changing the mode (run by Cron)
     - [x]  Not in /public_html
@@ -74,3 +76,4 @@ panel.php
  - [] Show NOP
  - [] Show NOG (number of guesses)
  - [] Ability to run meta script without remotely accessing xvk3
+ - [] Security?
