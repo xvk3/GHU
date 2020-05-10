@@ -68,7 +68,7 @@ function generateToken($conn, $post_email, $row_id) {
 <html lang="en" >
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <title>XVK3 - Post</title>
   
     <link rel="stylesheet" href="/css/google_font_css.css">

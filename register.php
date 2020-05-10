@@ -2,7 +2,7 @@
 <html>
   
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <title>GHU - Guess Highest Unique Registration</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
