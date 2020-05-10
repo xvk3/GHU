@@ -62,7 +62,8 @@
     $nr = $res->num_rows;
 
     // Generate CSV of results (guess, token)
-    $file = fopen("/home/xvk3/public_html/" . date('Ymd', time()) . ".csv");
+    $filename = "/home/xvk3/public_html/" . date('Ymd', time()) . ".csv";
+    $file = fopen($filename);
     $arr = array();
     if($nr > 0) {
       while($row = mysqli_fetch_assoc($res)) {
@@ -96,8 +97,9 @@
       }
     }
 
-    echo $highestUnique . "\r\n";
+    echo "Highest Unique = " . $highestUnique . "\r\n";
 
+    // Find participant with the highestUnique guess
     $sql = "SELECT NAME,EMAIL,TOKEN FROM GHU WHERE GUESS=?";
     $pql = mysqli_prepare($conn, $sql);
     if(!mysqli_stmt_bind_param($pql, 's', $highestUnique)) {
@@ -141,10 +143,12 @@
     echo $row['EMAIL'] . "\r\n";
     echo $row['TOKEN'] . "\r\n";
 
-    $sql = "UPDATE META SET WTOKEN=? WHERE TRUE";
+
+    // Update Historical GHU Table with winner's token, guess and results CSV file
+    $sql = "INSERT INTO HGHU (WTOKEN, WGUESS, CSV) VALUES (?, ?, ?)";
     $pql = mysqli_prepare($conn, $sql);
     
-    if(!mysqli_stmt_bind_param($pql, 's', $row['TOKEN'])) {
+    if(!mysqli_stmt_bind_param($pql, 'sss', $row['TOKEN'], $highestUnique, $filename)) {
       echo "calculate_winner:mysqli_stmt_bind_param failed\r\n";
       //die();
     } else {
