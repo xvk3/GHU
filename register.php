@@ -55,32 +55,57 @@
     //echo "register.php:mysqli_fetch_assoc success\r\n";
   }
 
-  if($row['STATE'] == 1) {
+  $rp = $row['RP'];
+  $state = $row['STATE'];
+
+  $sql = "SELECT COUNT(*) AS TOTAL FROM GHU";
+  $pql = mysqli_prepare($conn, $sql);
+  if(!mysqli_stmt_execute($pql)) {
+    echo "register.php:mysqli_stmt_execute failed\r\n";
+    die();
+  } else {
+    //echo "register.php:mysqli_stmt_execute success\r\n";
+  }
+
+  $res = mysqli_stmt_get_result($pql);
+  if(!$res) {
+    echo "register.php:mysqli_stmt_get_result failed\r\n";
+    die();
+  } else {
+    //echo "register.php:mysqli_stmt_get_result success\r\n";
+  }
+
+  $row = mysqli_fetch_assoc($res);
+  if(!$row) {
+    echo "register.php:mysqli_fetch_assoc failed\r\n";
+    //die();
+  } else {
+    //echo "register.php:mysqli_fetch_assoc success\r\n";
+  }
+
+  if($state == 1) {
     echo "<h1>Registration Active</h1>\r\n";
-    echo "<p>After registering keep a copy of the supplied token</p>\r\n";
-    echo "<pYou <b>will</b> need your token to submit your guess when the Guessing Countdown completes</p>\r\n";
-    echo "<p>The goal is to guess the highest unique number.</p>\r\n";
-    echo "<p>Good luck!</p>\r\n";
+    echo "<p>There are currently " . $row['TOTAL'] . " participants!</p>\r\n";
     echo "<form action=\"token.php\" method=\"post\">\r\n";
   } else {
     echo "<div class=\"head\"> <h1> Registration will be active on </h1> </div>\r\n";
     echo "<p id=\"td\">REGISTRATION PERIOD TIME</p>\r\n";
     echo "<p id=\"tr\">REGISTRATION PERIOD TIME REMAINING</p>\r\r";
-    echo "<p hidden id=\"phpi\">" . $row['RP'] . "</p>\r\n";
+    echo "<p hidden id=\"phpi\">" . $rp . "</p>\r\n";
     echo "<form>\r\n";
   }
 
 ?>
       <!--<form action="token.php" method="post">-->
         <div class="input">
-          <input type="name" name="name" placeholder="name" required="required" />
+          <input <?php if($state != 1) echo "disabled"; ?> type="name" name="name" placeholder="name" required="required" />
           <span><i class="fa fa-user"></i></span>
         </div>
         <div class="input">
-          <input type="email" name="email" placeholder="email" required="required" />
+          <input <?php if($state != 1) echo "disabled"; ?> type="email" name="email" placeholder="email" required="required" />
           <span><i class="fa fa-envelope-o"></i></span>
         </div>
-        <button id="submit" type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+        <button  <?php if($state != 1) echo "disabled"; ?> id="submit" type="submit" class="btn btn-primary btn-block btn-large">Register</button>
       </form>
     </div>
     <div id="context">

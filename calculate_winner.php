@@ -63,7 +63,7 @@
 
     // Generate CSV of results (guess, token)
     $filename = "/home/xvk3/public_html/" . date('Ymd', time()) . ".csv";
-    $file = fopen($filename);
+    $file = fopen($filename, 'w');
     $arr = array();
     if($nr > 0) {
       while($row = mysqli_fetch_assoc($res)) {
@@ -130,19 +130,12 @@
     } else {
       //echo "calculate_winner.php:num_rows > 0\r\n";
     }
-
-    $row = mysqli_fetch_assoc($res);
-    if(!$row) {
-      echo "calculate_winner.php:mysqli_fetch_assoc failed\r\n";
-      //die();
-    } else {
-      //echo "calculate_winner.php:mysqli_fetch_assoc success\r\n";
+    
+    while($row = mysqli_fetch_assoc($res)) {
+      echo $row['NAME'] . "\r\n";
+      echo $row['EMAIL'] . "\r\n";
+      echo $row['TOKEN'] . "\r\n";
     }
-
-    echo $row['NAME'] . "\r\n";
-    echo $row['EMAIL'] . "\r\n";
-    echo $row['TOKEN'] . "\r\n";
-
 
     // Update Historical GHU Table with winner's token, guess and results CSV file
     $sql = "INSERT INTO HGHU (WTOKEN, WGUESS, CSV) VALUES (?, ?, ?)";

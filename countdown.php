@@ -58,7 +58,10 @@
   }
 
   if($row['STATE'] == 2) {
-    echo "<div class=\"head\"> <h1>Submission Active Guess between 1 and " . $row['NOP'] . "</h1> </div>\r\n";
+    echo "<div class=\"head\">\r\n";
+    echo "  <h1>Submission Active</h1>\r\n";
+    echo "  <h1>Guess between 1 and " . $row['NOP'] . "</h1>\r\n";
+    echo "</div>\r\n";
     echo "<form action=\"guess.php\" method=\"post\">\r\n";
   } else {
     echo "<div class=\"head\"> <h1>Submission will be active on </h1> </div>\r\n";

@@ -146,7 +146,7 @@ $(document).ready(function () {
   function postInject() {
     $(".result span").each(function () {
       var el = $(this);
-      var textLength = el.html().length;
+      var textLength = el.length;
 
       if (textLength >= 3) {
         el.css("font-size", "1.25em");

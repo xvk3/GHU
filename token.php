@@ -1,66 +1,42 @@
 <?php
 
 // Generate TOKEN
-function generateToken($conn, $post_email, $row_id) {
-  //generate 10 bytes of random data - for token
+function generateToken() {
   $length = 10;
   $crypto_secure = 1;
   $bytes = openssl_random_pseudo_bytes($length, $crypto_secure);
   $hex   = bin2hex($bytes);
-         
-  //check for duplicate TOKEN
+  return $hex;
+}
+
+// Check TOKEN
+function checkToken($conn, $token) {
+
+  // Check TOKEN doesn't exist
   $sql = "SELECT ID FROM GHU WHERE TOKEN=?";
   $pql = mysqli_prepare($conn, $sql);
-  if(!mysqli_stmt_bind_param($pql, 's', $hex)) {
-    echo "token.php:mysqli_stmt_bind_param failed\r\n";
+  if(!mysqli_stmt_bind_param($pql, 's', $token)) {
+    echo "token.php:checkToken:mysqli_stmt_bind_param failed\r\n";
     //die();
   } else {
-    //echo "token.php:mysqli_stmt_bind_param success\r\n";
+    //echo "token.php:checkToken:mysqli_stmt_bind_param success\r\n";
   }
 
   if(!mysqli_stmt_execute($pql)) {
-    echo "token.php:mysqli_stmt_execute failed\r\n";
+    echo "token.php:checkToken:mysqli_stmt_execute failed\r\n";
     //die();
   } else {
-    //echo "token.php:mysqli_stmt_execute failed\r\n";
+    //echo "token.php:checkToken:mysqli_stmt_execute failed\r\n";
   }
 
   $res = mysqli_stmt_get_result($pql);
   if(!$res) {
-    echo "token.php:mysqli_stmt_get_result failed\r\n";
+    echo "token.php:checkToken:mysqli_stmt_get_result failed\r\n";
     //die();
   } else {
-    //echo "token.php:mysqli_stmt_get_result success\r\n";
+    //echo "token.php:checkToken:mysqli_stmt_get_result success\r\n";
   }
-
-  if($res->num_rows != 0) {
-    generateToken($conn, $post_email);
-  } else {
-  
-    //update database with TOKEN
-    $sql = "UPDATE GHU SET TOKEN=? WHERE EMAIL=?";
-    $pql = mysqli_prepare($conn, $sql);
-    if(!mysqli_stmt_bind_param($pql, 'ss', $hex, $post_email)) {
-      echo "token.php:mysqli_stmt_bind_param failed\r\n";
-      //die();
-    } else {
-      //echo "token.php:mysqli_stmt_bind_param success\r\n";
-    }
-
-    if(!mysqli_stmt_execute($pql)) {
-      echo "token.php:mysqli_stmt_execute failed\r\n";
-      //die();
-    } else {
-      //echo "token.php:mysqli_stmt_execute success\r\n";
-    }
-
-    $row_id2 = mysqli_insert_id($conn);
-    if($row_id == $row_id2) {
-      //echo "match\r\n";
-      echo $hex;
-    }
-                                
-  }
+  return $res->num_rows;
 }
 ?>
 
@@ -131,12 +107,6 @@ function generateToken($conn, $post_email, $row_id) {
     $post_name = $_POST["name"];
     $post_email = $_POST["email"];
 
-    //$post_name = "hello";
-    //$post_email = "email@gg.com" . rand(1, 10000);
-
-    //echo $post_name . "\r\n";
-    //echo $post_email . "\r\n";
-
     //check connection
     if ($conn) {
       //check to see if email already exists
@@ -169,39 +139,46 @@ function generateToken($conn, $post_email, $row_id) {
       } else {
         //echo "token.php:Email not already registered\r\n";
       }
-      
+
+      do {
+        $token = generateToken();
+      } while(checkToken($conn, $token)); 
+
       // Insert name and email into database
-      $sql = "INSERT INTO GHU (NAME, EMAIL) VALUES (?,?)";
+      $sql = "INSERT INTO GHU (NAME, EMAIL, TOKEN) VALUES (?, ?, ?)";
       $pql = mysqli_prepare($conn, $sql);
-      if(!mysqli_stmt_bind_param($pql, 'ss', $post_name, $post_email)) {
+      if(!mysqli_stmt_bind_param($pql, 'sss', $post_name, $post_email, $token)) {
         echo "token.php:mysqli_stmt_bind_param failed\r\n";
         //die();
       } else {
         //echo "token.php:mysqli_stmt_bind_param success\r\n";
       }
-
+      $success = false;
       if(!mysqli_stmt_execute($pql)) {
         echo "token.php:mysqli_stmt_execute failed\r\n";
         //die();
       } else {
         //echo "token.php:mysqli_stmt_execute success\r\n";
+        $success = true;
+        echo $token;
       }
-      // Get the ID of the INSERTED row
-      $row_id = mysqli_insert_id($conn);
-      //echo $row_id;
-      generateToken($conn, $post_email, $row_id); 
-      
     } 
     //close the database
     mysqli_close($conn);
-  } else { header('Location: http://www.xvk3.net/register.php');
+  } else { header('Location: http://www.xvk3.net/register.php'); }
             
   ?>" readonly>
       <button id="copy" class="btn btn-primary btn-block btn-large" tooltip="Copy to Clipboard" tooltip-position="right"><i class="fa fa-copy"></i></button>
         
     </div>
     <div id="context">
-      <p>Guess Highest Unique Number Token Generator</p>
+      <?php
+      if($success) {
+        echo "<h1>Sucess! Keep the above token safe, you will need it to submit your number</h1>\r\n";
+      } else {
+        echo "<h1>Error! Problem with registration or token generation</h1>\r\n";
+      }
+      ?>
     </div>
 
   </div>

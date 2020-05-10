@@ -122,6 +122,7 @@
                   //die();
                 } else {
                   echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
+                  header('Location: results.php');
                 }
               }
             }
