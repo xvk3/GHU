@@ -179,12 +179,9 @@ $(document).ready(function () {
     });
     reduced = results.map(a => a.tokens);
     
-    console.log(reduced);
-
-
     if (number > -1) {
       //.value is unique thus no iteration required
-      $("#token-placement p").text(reduced.toString().replace(/,/g, ' '));
+      $("#token-placement p").text(reduced.toString().replace(/,/g, '<br>'));
     } else {
       $("#token-placement p").text("error finding tokens..");
     }

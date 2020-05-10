@@ -18,11 +18,15 @@ The Guess Highest Unique number "lottery" involves three processes
  - [] Test cases
     - [] Python script to send registration requests
     - [] Python script to send guess requests
- - [] CSV output of previous draw/game
+ - [x] CSV output of previous draw/game
+   - [] Needs testings
  - [] Payment integration (PayPal?)
  - [] Main overview page (maybe just redirect to the current period's page?)
    - Ajax could be used to load the correct form depending on period ?
  - [] Create the SQL command to generate the GHU and META tables
+   - [] GHU
+   - [] META
+   - [x] HGHU
 
 ## Files
 

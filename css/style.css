@@ -478,16 +478,13 @@ button:hover, .form button:active, .form button:focus {
   border-bottom: 1px solid #999;
 }
 
+.result.winner { background: gold;}
+.result.second { background: silver;}
+.result.missed { background: red;}
 .result.unique { background: white;}
-.result.rare {	background: blue;}
-.result.winner {	background: gold;}
-.result.basic {	background: grey;}
-.result.black{  opacity:1;  display:inline-table;}
-
-.result p span, .result h2 span{
-  position:absolute;
-  top:0;left:0;right:0;bottom:0;
-}
+.result.rare   { background: blue;}
+.result.basic  { background: grey;}
+.result.black  { opacity:1; display:inline-table;}
 
 .result p, h2{
   position:relative;
@@ -496,8 +493,8 @@ button:hover, .form button:active, .form button:focus {
   width: 100%;
   line-height:27.5px;
   display: inline-block;
-  -webkit-transition: all .25s;
-  transition: all .25s;
+  -webkit-transition: all .15s;
+  transition: all .15s;
 }
 
 .result:hover p, .result:hover h2{
@@ -513,23 +510,27 @@ button:hover, .form button:active, .form button:focus {
 }
 
 .result p{
-  border-top:2px solid #333;
   background:#000;
   color:#fff;
 }
 
 .result span{
+  position: absolute;
+  top:0;left:0;right:0;bottom:0;
   margin:0; padding:0;
 }
 
-.result h2 span{
+.result:hover span{
+  font-size: 16px;
+  line-height: 27.5px;
   -webkit-transition: all .25s;
   transition: all .25s;
 }
 
-.result:hover h2 span, .result:hover p span{
-  font-size:16px; 
+.result h2 span{
+  line-height:55px;
 }
+
 #info-footer{
   position: relative;
   width: 100%;  height:0px; max-height:0; /*toggle state*/
@@ -538,12 +539,17 @@ button:hover, .form button:active, .form button:focus {
   margin-top: 15px;
   text-align: left;
   box-sizing: border-box;
+  opacity: 0;
   transition: all .5s;
+  transition: opacity 1s ease;
   overflow: hidden;
 }
 
 #info-footer.expanded{
-  height: 100px; max-height: 400px;
+  height: auto;
+  max-height: 900px;
+  opacity: 1;
+  transition: all 1s ease;
 }
 
 #info-footer > div{
@@ -554,7 +560,7 @@ button:hover, .form button:active, .form button:focus {
 #token-placement{}
 
 #token-placement p{
-
+  font-size: 2em;
   padding: 5px;
 }
 
