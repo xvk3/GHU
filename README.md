@@ -48,6 +48,8 @@ token.php
 guess.php
 ```
  - [x] Needs to know META->NOP and prevent guessing of invalid numbers
+ - [] Needs to update META->NOG (Number of guesses)
+   - From this it is possible to calculate how many participants have (not) guessed, display this on countdown.php ?
 
 ```
 countdown.php
@@ -87,7 +89,7 @@ permit_registration.php
 ```
 
 ```
-permit_guessing.php
+permit_guesses.php
 ```
 
 ```
