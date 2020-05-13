@@ -174,7 +174,7 @@ function checkToken($conn, $token) {
     <div id="context">
       <?php
       if($success) {
-        echo "<h1>Sucess! Keep the above token safe, you will need it to submit your number</h1>\r\n";
+        echo "<h1>Success! Keep the above token safe, you will need it to submit your number</h1>\r\n";
       } else {
         echo "<h1>Error! Problem with registration or token generation</h1>\r\n";
       }

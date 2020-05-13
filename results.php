@@ -62,7 +62,7 @@
       echo "  <div class=\"hidden\">\r\n";
       echo "  </div>\r\n";
       echo "  <p id=\"td\">FINAL PERIOD TIME</p>\r\n";
-      echo "  <p id=\"tr\">FINAL PERIOD TIME REMAINGING</p>\r\n";
+      echo "  <p id=\"tr\">FINAL PERIOD TIME REMAINING</p>\r\n";
       echo "  <p hidden id=\"phpi\">" . $row['FP'] . "</p>\r\n";
     } else {
       echo "      <div id=\"results\" class=\"results\">\r\n";
