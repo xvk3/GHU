@@ -27,6 +27,7 @@ The Guess Highest Unique number "lottery" involves three processes
    - [x] GHU
    - [x] META
    - [x] HGHU
+ - [] If META->NOP == META->NOG then we can end the guessing period early?
 
 ## Main Files
 
@@ -49,7 +50,7 @@ guess.php
 ```
  - [x] Needs to know META->NOP and prevent guessing of invalid numbers
  - [] Needs to update META->NOG (Number of guesses)
-   - From this it is possible to calculate how many participants have (not) guessed, display this on countdown.php ?
+   - From this it is possible to calculate how many participants have (not) guessed, display this on countdown.php ? Maybe a fraction NOG/NOP ?
 
 ```
 countdown.php
@@ -58,6 +59,7 @@ countdown.php
     - See test.php
  - [x] Limit form input between 1 - META->NOP
  - [x] Beter display the allowed guessing range
+ - [] Display META->NOP and META->NOG
 
 ```
 results.php
