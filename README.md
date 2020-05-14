@@ -49,8 +49,7 @@ token.php
 guess.php
 ```
  - [x] Needs to know META->NOP and prevent guessing of invalid numbers
- - [] Needs to update META->NOG (Number of guesses)
-   - From this it is possible to calculate how many participants have (not) guessed, display this on countdown.php ? Maybe a fraction NOG/NOP ?
+ - [x] Needs to update META->NOG (Number of guesses)
 
 ```
 countdown.php
@@ -60,6 +59,8 @@ countdown.php
  - [x] Limit form input between 1 - META->NOP
  - [x] Beter display the allowed guessing range
  - [] Display META->NOP and META->NOG
+   - From this it is possible to calculate how many participants have (not) guessed, maybe display a fraction NOG/NOP ?
+
 
 ```
 results.php

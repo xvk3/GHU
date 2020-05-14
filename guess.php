@@ -121,16 +121,57 @@
                   echo "guess.php:mysqli_affected_rows failed/returned 0\r\n";
                   //die();
                 } else {
-                  echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
-                  header('Location: results.php');
+
+                  $sql = "SELECT NOG FROM META WHERE TRUE";
+                  $pql = mysqli_prepare($conn, $sql);
+                  if(!mysqli_stmt_execute($pql))  {
+                    echo "guess.php:mysqli_stmt_execute failed\r\n";
+                    //die();
+                  } else {
+                    //echo "guess.php:mysqli_stmt_execute success\r\n";
+                  }
+
+                  $row = mysqli_fetch_assoc($res);
+                  if(!$row) {
+                    echo "guess.php:mysqli_fetch_assoc failed\r\n";
+                    //die();
+                  } else {
+                    //echo "guess.php:mysqli_fetch_assoc success\r\n";
+                  }
+
+                  $nog = $row['NOG'];
+                  $nog++;
+
+                  $sql = "UPDATE META SET NOG=? WHERE TRUE";
+                  $pql = mysqli_prepare($conn, $sql);
+                  if(!mysqli_stmt_bind_param($pql, 's', $nog)) {
+                    echo "guess.php:mysqli_stmt_bind_param failed\r\n";
+                    //die();
+                  } else {
+                    //echo "guess.php:mysqli_stmt_bind_param success\r\n";
+                  }
+  
+                  if(!mysqli_stmt_execute($pql))  {
+                    echo "guess.php:mysqli_fetch_assoc failed\r\n";
+                    //die();
+                  } else {
+                    //echo "guess.php:mysqli_fetch_assoc success\r\n";
+                  }
+
+                  if(!mysqli_affected_rows($conn)) {
+                    echo "guess.php:mysqli_affected_rows failed/return 0\r\n";
+                    //die();
+                  } else {
+                    echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
+                    header('Location: results.php');
+                  }
                 }
               }
             }
           }
         }
       }
-    
-      //close the database
+      // Close the database
       mysqli_close($conn);
     }
   }
