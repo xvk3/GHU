@@ -62,7 +62,7 @@
     $nr = $res->num_rows;
 
     // Generate CSV of results (guess, token)
-    $filename = "/home/xvk3/public_html/" . date('Ymd', time()) . ".csv";
+    $filename = "/home/xvk3/public_html/hghu/" . date('Ymd', time()) . ".csv";
     $file = fopen($filename, 'w');
     $arr = array();
     if($nr > 0) {
