@@ -59,9 +59,9 @@
 
   $msg = "  <h1>So far " . $row['NOG'] . "participant";
   if($row['NOG'] == 1) { 
-    $msg += " has guessed</h1>\r\n";
+    $msg .= " has guessed</h1>\r\n";
   } else {
-    $msg += "s have guessed</h1>\r\n";
+    $msg .= "s have guessed</h1>\r\n";
   }
 
   if($row['STATE'] == 2) {
