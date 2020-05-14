@@ -57,7 +57,7 @@
     //echo "register.php:mysqli_fetch_assoc success\r\n";
   }
 
-  $msg = "  <h1>So far " . $row['NOG'] . "participant";
+  $msg = "  <h1>So far " . $row['NOG'] . " participant";
   if($row['NOG'] == 1) { 
     $msg .= " has guessed</h1>\r\n";
   } else {
