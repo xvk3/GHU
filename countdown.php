@@ -31,7 +31,7 @@
   include("ghu_dbconnect.php");
   global $conn;
 
-  $sql = "SELECT STATE,GP,NOP FROM META";
+  $sql = "SELECT STATE,GP,NOP,GOP FROM META";
   $pql = mysqli_prepare($conn, $sql);
 
   if(!mysqli_stmt_execute($pql)) {
@@ -57,10 +57,18 @@
     //echo "register.php:mysqli_fetch_assoc success\r\n";
   }
 
+  $msg = "  <h1>So far " . $row['GOP'] . "participant";
+  if($row['GOP'] == 1) { 
+    $msg += " has guessed</h1>\r\n";
+  } else {
+    $msg += "s have guessed</h1>\r\n";
+  }
+
   if($row['STATE'] == 2) {
     echo "<div class=\"head\">\r\n";
     echo "  <h1>Submission Active</h1>\r\n";
     echo "  <h1>Guess between 1 and " . $row['NOP'] . "</h1>\r\n";
+    echo $msg;
     echo "</div>\r\n";
     echo "<form action=\"guess.php\" method=\"post\">\r\n";
   } else {

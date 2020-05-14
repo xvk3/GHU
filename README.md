@@ -58,7 +58,7 @@ countdown.php
     - See test.php
  - [x] Limit form input between 1 - META->NOP
  - [x] Beter display the allowed guessing range
- - [] Display META->NOP and META->NOG
+ - [x] Display META->NOP and META->NOG
    - From this it is possible to calculate how many participants have (not) guessed, maybe display a fraction NOG/NOP ?
 
 
