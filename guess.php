@@ -131,16 +131,20 @@
                     //echo "guess.php:mysqli_stmt_execute success\r\n";
                   }
 
-                  $row = mysqli_fetch_assoc($res);
-                  if(!$row) {
-                    echo "guess.php:mysqli_fetch_assoc failed\r\n";
+                  $res = mysqli_stmt_get_result($pql);
+                  if(!$res) {
+                    echo "guess.php:mysqli_stmt_get_result failed\r\n";
                     //die();
                   } else {
+                    //echo "guess.php:mysqli_stmt_get_result success\r\n";
+                  }
+
+                  while($row = mysqli_fetch_assoc($res)) {
+                    $nog = $row['NOG'];
                     //echo "guess.php:mysqli_fetch_assoc success\r\n";
                   }
 
-                  $nog = $row['NOG'];
-                  $nog++;
+                  $nog = $nog + 1;
 
                   $sql = "UPDATE META SET NOG=? WHERE TRUE";
                   $pql = mysqli_prepare($conn, $sql);

@@ -58,7 +58,7 @@
     $sql = "DELETE FROM GHU WHERE 1";
     mysqli_query($conn, $sql);
 
-    $sql = "UPDATE META SET MAIN=0, STATE=0, RP=$rp, GP=$gp, FP=$fp  WHERE TRUE";
+    $sql = "UPDATE META SET MAIN=0, STATE=0, RP=$rp, GP=$gp, FP=$fp, NOP=0, NOG=0  WHERE TRUE";
     mysqli_query($conn, $sql);
 
     mysqli_close($conn);

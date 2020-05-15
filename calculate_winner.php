@@ -68,7 +68,7 @@
     if($nr > 0) {
       while($row = mysqli_fetch_assoc($res)) {
         fwrite($file, $row['TOKEN'] . "," . $row['GUESS'] . "\r\n");
-        $arr[] = $row['GUESS'];
+        $arr[] = empty($row['GUESS']) ? "-" : $row['GUESS'];
       }
       fclose($file);
     } else {
@@ -102,7 +102,7 @@
     // Find participant with the highestUnique guess
     $sql = "SELECT NAME,EMAIL,TOKEN FROM GHU WHERE GUESS=?";
     $pql = mysqli_prepare($conn, $sql);
-    if(!mysqli_stmt_bind_param($pql, 's', $highestUnique)) {
+    if(!mysqli_stmt_bind_param($pql, 'i', $highestUnique)) {
       echo "calculate_winner.php:mysqli_stmt_bind_param failed\r\n";
       //die();
     } else {
@@ -132,16 +132,18 @@
     }
     
     while($row = mysqli_fetch_assoc($res)) {
+      $wtoken = $row['TOKEN'];
       echo $row['NAME'] . "\r\n";
       echo $row['EMAIL'] . "\r\n";
       echo $row['TOKEN'] . "\r\n";
     }
+    
 
     // Update Historical GHU Table with winner's token, guess and results CSV file
     $sql = "INSERT INTO HGHU (WTOKEN, WGUESS, CSV) VALUES (?, ?, ?)";
     $pql = mysqli_prepare($conn, $sql);
     
-    if(!mysqli_stmt_bind_param($pql, 'sss', $row['TOKEN'], $highestUnique, $filename)) {
+    if(!mysqli_stmt_bind_param($pql, 'sss', $wtoken, $highestUnique, $filename)) {
       echo "calculate_winner:mysqli_stmt_bind_param failed\r\n";
       //die();
     } else {
@@ -153,22 +155,6 @@
       //die();
     } else {
       //echo "calculate_winner.php:mysqli_stmt_execute success\r\n";
-    }
-
-    $res = mysqli_stmt_get_result($pql);
-    if(!$res) {
-      echo "calculate_winner.php:mysqli_stmt_get_result failed\r\n";
-      //die();
-    } else {
-      //echo "calculate_winner.php:mysqli_stmt_get_result success\r\n";
-    }
-
-    if($res->num_rows == 0) {
-      echo "calculate_winner.php:res->num_rows == 0\r\n";
-      //die();
-    } else {
-      //echo "calculate_winner.php:mysqli_stmt_get_result $res success\r\n";
-      echo "calculate_winner.php " . $row['TOKEN'] . "\r\n";
     }
 
     // Email winner
