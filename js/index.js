@@ -13,6 +13,45 @@ $(document).ready(function () {
     }, 300);
   });
 
+  $("#copy#").click(function(e) {
+    e.preventDefault();
+    CopyToClipboard(true, "Token copied to clipboard");
+  }
+
+  function CopyToClipboard(showNotification, notificationText) {
+    var $temp = $("<input>");
+    var value = $('#token').val();
+
+    $("body").append($temp);
+    $temp.val(value).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    if (typeof showNotification === "undefined") {
+      showNotification = true;
+    }
+    if (typeof notificationText === "undefined") {
+      notificationText = "No text specified";
+    }
+
+    var notificationTag = $("div.copy-notification");
+    if (showNotification && notificationTag.length == 0) {
+      notificationTag = $("<div/>", {
+        class: "copy-notification",
+        text: notificationText
+      });
+      $("body").append(notificationTag);
+       
+      notificationTag.fadeIn("slow", function() {
+        setTimeout(function() {
+          notificationTag.fadeOut("slow", function() {
+            notificationTag.remove();
+          });
+        }, 1000);
+      });
+    }
+  }
+
   function secToHMS(seconds) {
     var hours = Math.floor(seconds / 60 / 60);
     var minutes = Math.floor(seconds / 60) - hours * 60;
