@@ -16,7 +16,7 @@ $(document).ready(function () {
   $("#copy#").click(function(e) {
     e.preventDefault();
     CopyToClipboard(true, "Token copied to clipboard");
-  }
+  });
 
   function CopyToClipboard(showNotification, notificationText) {
     var $temp = $("<input>");
