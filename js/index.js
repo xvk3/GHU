@@ -13,7 +13,7 @@ $(document).ready(function () {
     }, 300);
   });
 
-  $("#copy#").click(function(e) {
+  $("#copy").click(function(e) {
     e.preventDefault();
     CopyToClipboard(true, "Token copied to clipboard");
   });
