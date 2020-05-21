@@ -38,6 +38,39 @@
   global $conn;
   if($conn) {
 
+    // Check if calculate_winner.php was already executed
+    // This is done by checking META->STATE which would be 3 if the results are
+    // already drawn
+    $sql = "SELECT STATE FROM META";
+    $pql = mysqli_prepare($conn, $sql);
+    if(!mysqli_stmt_execute($pql))  {
+      echo "calculate_winner.php:mysqli_stmt_execute failed\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner.php:mysqli_stmt_execute success\r\n";
+    }
+
+    $res = mysqli_stmt_get_result($pql);
+    if(!$res) {
+      echo "calculate_winner.php:mysqli_stmt_get_result failed\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner.php:mysqli_stmt_get_result success\r\n";
+    }
+
+    $row = mysqli_fetch_assoc($res);
+    if(!$row) {
+      echo "calculate_winner.php:mysqli_fetch_assoc failed\r\n";
+      //die();
+    } else {
+      //echo "calculate_winner.php:mysqli_fetch_assoc success\r\n";
+    }
+
+    if($row['STATE'] == 3) {
+      echo "calculate_winner.php:already calculated winner META->STATE = 3\r\n";
+      die();
+    }
+
     // Update META
     $sql = "UPDATE META SET STATE=3, FP=$fp WHERE TRUE";
     mysqli_query($conn, $sql);

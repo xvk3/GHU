@@ -122,7 +122,7 @@
                   //die();
                 } else {
 
-                  $sql = "SELECT NOG FROM META WHERE TRUE";
+                  $sql = "SELECT NOP,NOG FROM META WHERE TRUE";
                   $pql = mysqli_prepare($conn, $sql);
                   if(!mysqli_stmt_execute($pql))  {
                     echo "guess.php:mysqli_stmt_execute failed\r\n";
@@ -140,11 +140,10 @@
                   }
 
                   while($row = mysqli_fetch_assoc($res)) {
-                    $nog = $row['NOG'];
+                    $nop = $row['NOP'];
+                    $nog = $row['NOG'] + 1;
                     //echo "guess.php:mysqli_fetch_assoc success\r\n";
                   }
-
-                  $nog = $nog + 1;
 
                   $sql = "UPDATE META SET NOG=? WHERE TRUE";
                   $pql = mysqli_prepare($conn, $sql);
@@ -167,6 +166,10 @@
                     //die();
                   } else {
                     echo "updated " . mysqli_affected_rows($conn) . " rows\r\n";
+                    // If all participants have submitted a guess, execute calculate_winner.php
+                    if($nog == $nop) {
+                      shell_exec('php /home/xvk3/ghu/calculate_winner.php > /home/xvk3/ghu/calculate_winner.log');
+                    } 
                     header('Location: results.php');
                   }
                 }

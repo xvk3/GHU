@@ -27,7 +27,7 @@ The Guess Highest Unique number "lottery" involves three processes
    - [x] GHU
    - [x] META
    - [x] HGHU
- - [] If META->NOP == META->NOG then we can end the guessing period early?
+ - [x] If META->NOP == META->NOG then we can end the guessing period early
 
 ## Main Files
 
