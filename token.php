@@ -161,6 +161,43 @@ function checkToken($conn, $token) {
         //echo "token.php:mysqli_stmt_execute success\r\n";
         $success = true;
         echo $token;
+
+        $sql = "SELECT NOP FROM META WHERE TRUE";
+        $pql = mysqli_prepare($sql);
+        if(!mysqli_stmt_execute($pql) {
+          echo "token.php:mysqli_stmt_execute failed\r\n";
+          die();
+        } else {
+          //echo "token.php:mysqli_stmt_execute success\r\n";
+        }
+
+        $res = mysqli_stmt_get_result($pql);
+        if(!$res) {
+          echo "token.php:mysqli_stmt_get_result failed\r\n";
+          die();
+        } else {
+          //echo "token.php:mysqli_stmt_get_result success\r\n";
+        }
+
+        while($row = mysqli_fetch_assoc($res))  {
+          $nop = $row['NOP'] + 1;
+        }
+
+        $sql = "UPDATE META SET NOP=? WHERE TRUE";
+        $pql = mysqli_prepare($conn, $sql);
+        if(!mysqli_stmt_bind_param($pql, 's', $nop))  {
+          echo "token.php:mysqli_stmt_bind_param failed\r\n";
+          die();
+        } else {
+          //echo "token.php:mysqli_stmt_bind_param succes\r\n";
+        }
+
+        if(!mysqli_stmt_execute($pql)) {
+          echo "token.php:mysqli_stmt_execute failed\r\n";
+          die();
+        } else {
+          //echo "token.php:mysqli_stmt_execute success\r\n";
+        }
       }
     } 
     //close the database

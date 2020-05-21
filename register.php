@@ -29,7 +29,7 @@
   global $conn;
 
 
-  $sql = "SELECT STATE,RP FROM META";
+  $sql = "SELECT STATE,RP,NOP FROM META";
   $pql = mysqli_prepare($conn, $sql);
 
   if(!mysqli_stmt_execute($pql)) {
@@ -57,35 +57,11 @@
 
   $rp = $row['RP'];
   $state = $row['STATE'];
-
-  $sql = "SELECT COUNT(*) AS TOTAL FROM GHU";
-  $pql = mysqli_prepare($conn, $sql);
-  if(!mysqli_stmt_execute($pql)) {
-    echo "register.php:mysqli_stmt_execute failed\r\n";
-    die();
-  } else {
-    //echo "register.php:mysqli_stmt_execute success\r\n";
-  }
-
-  $res = mysqli_stmt_get_result($pql);
-  if(!$res) {
-    echo "register.php:mysqli_stmt_get_result failed\r\n";
-    die();
-  } else {
-    //echo "register.php:mysqli_stmt_get_result success\r\n";
-  }
-
-  $row = mysqli_fetch_assoc($res);
-  if(!$row) {
-    echo "register.php:mysqli_fetch_assoc failed\r\n";
-    //die();
-  } else {
-    //echo "register.php:mysqli_fetch_assoc success\r\n";
-  }
+  $nop = $row['NOP'];
 
   if($state == 1) {
     echo "<h1>Registration Active</h1>\r\n";
-    echo "<p>There are currently " . $row['TOTAL'] . " participants!</p>\r\n";
+    echo "<p>There are currently " . $nop . " participants!</p>\r\n";
     echo "<form action=\"token.php\" method=\"post\">\r\n";
   } else {
     echo "<div class=\"head\"> <h1> Registration will be active on </h1> </div>\r\n";

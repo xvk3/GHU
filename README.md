@@ -36,14 +36,15 @@ register.php
 ```
  - [x] Disable Registration during Guess/Result mode
     - META->STATE must be 1 to permit registration
+ - [x] Displays META->NOP
 
 ```
 token.php
 ```
  - [x] Prevent Duplicate TOKENS
  - [x] Prevent INSERTING new registrations when STATE != 1
- - [] Should token.php update META->NOP each time a new participant registers ?
-   - [] If this is going ahead then register.php can be updated to use META->NOP instead of $res->num_rows
+ - [x] Should token.php update META->NOP each time a new participant registers ?
+   - [x] If this is going ahead then register.php can be updated to use META->NOP instead of $res->num_rows
 
 ```
 guess.php
