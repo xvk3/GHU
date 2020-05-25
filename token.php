@@ -163,8 +163,8 @@ function checkToken($conn, $token) {
         echo $token;
 
         $sql = "SELECT NOP FROM META WHERE TRUE";
-        $pql = mysqli_prepare($sql);
-        if(!mysqli_stmt_execute($pql) {
+        $pql = mysqli_prepare($conn, $sql);
+        if(!mysqli_stmt_execute($pql)) {
           echo "token.php:mysqli_stmt_execute failed\r\n";
           die();
         } else {
