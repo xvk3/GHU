@@ -28,6 +28,9 @@ The Guess Highest Unique number "lottery" involves three processes
    - [x] META
    - [x] HGHU
  - [x] If META->NOP == META->NOG then we can end the guessing period early
+ - [] Persistent registration (Remember me button?)
+ - [] Email me when GP active button?
+ - [] If less than 10 participants have registered delay GP until META->NOP >= 10
 
 ## Main Files
 
@@ -61,6 +64,7 @@ countdown.php
  - [x] Beter display the allowed guessing range
  - [x] Display META->NOP and META->NOG
    - From this it is possible to calculate how many participants have (not) guessed, maybe display a fraction NOG/NOP ?
+ - [] The use of $success is failing (code scope issue?)
 
 
 ```
