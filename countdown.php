@@ -11,7 +11,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/index.js"></script>
   </head>
-  <body onload="tr();">
+  <body>
     <div class="vcent noselect">
       <div id="header">
         <h1>XVK3<span>.NET</span></h1>
