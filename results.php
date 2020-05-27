@@ -10,7 +10,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script src="/js/index.js"></script>
   </head>
-  <body onload="tr();">
+  <body>
     <div class="vcent noselect">
       <div id="header">
         <h1>XVK3<span>.NET</span></h1>
@@ -95,7 +95,7 @@
         while($row = mysqli_fetch_assoc($res)) {
           echo "," . $row['TOKEN'] . ":" . $row['GUESS']; 
         }
-        echo "\r\n       </div>";
+        echo "</div>\r\n";
       } else {
         echo "results.php:mysqli_fetch_assoc failed\r\n";
         echo "nobody submitted a guess\r\n";
