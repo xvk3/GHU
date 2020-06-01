@@ -40,6 +40,9 @@ register.php
  - [x] Disable Registration during Guess/Result mode
     - META->STATE must be 1 to permit registration
  - [x] Displays META->NOP
+ - [ ] Checkbox - "Email me when the guessing period starts"
+ - [ ] Checkbox - "Email me when the results are published"
+ - [ ] Checkbox - "Email me when the next registration period starts"
 
 ```
 token.php
