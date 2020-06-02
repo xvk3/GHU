@@ -11,26 +11,26 @@ The Guess Highest Unique number "lottery" involves three processes
  - [] Update files based on new PHP knowledge
  - [x] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS
  - [x] Make table hold data on historial GHU results, HGHU->{ID,DATE,WTOKEN,WGUESS,CSV}
-   - [] results.php can read the newest row of this table and display results accordingly
+   - [ ] results.php can read the newest row of this table and display results accordingly
  - [x] Rework Crontab to change modes Registration/Guess/Results at correct times (midnight?)
  - [x] Write additional script to handle changing the mode (run by Cron)
     - [x]  Not in /public_html
- - [] Test cases
-    - [] Python script to send registration requests
-    - [] Python script to send guess requests
+ - [ ] Test cases
+    - [ ] Python script to send registration requests
+    - [ ] Python script to send guess requests
  - [x] CSV output of previous draw/game
-   - [] Needs testing
- - [] Payment integration (PayPal?)
- - [] Main overview page (maybe just redirect to the current period's page?)
+   - [ ] Needs testing
+ - [ ] Payment integration (PayPal?)
+ - [ ] Main overview page (maybe just redirect to the current period's page?)
    - Ajax could be used to load the correct form depending on period ?
  - [x] Create the SQL command to generate the GHU and META tables
    - [x] GHU
    - [x] META
    - [x] HGHU
  - [x] If META->NOP == META->NOG then we can end the guessing period early
- - [] Persistent registration (Remember me button?)
- - [] Email me when GP active button?
- - [] If less than 10 participants have registered delay GP until META->NOP >= 10
+ - [ ] Persistent registration (Remember me button?)
+ - [ ] Email me when GP active button?
+ - [ ] If less than 10 participants have registered delay GP until META->NOP >= 10
 
 ## Main Files
 
@@ -61,7 +61,7 @@ guess.php
 ```
 countdown.php
 ```
- - [] Timezones, Server Time, Local Time
+ - [ ] Timezones, Server Time, Local Time
     - See test.php
  - [x] Limit form input between 1 - META->NOP
  - [x] Beter display the allowed guessing range
