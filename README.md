@@ -40,9 +40,9 @@ register.php
  - [x] Disable Registration during Guess/Result mode
     - META->STATE must be 1 to permit registration
  - [x] Displays META->NOP
- - [ ] Checkbox - "Email me when the guessing period starts"
- - [ ] Checkbox - "Email me when the results are published"
- - [ ] Checkbox - "Email me when the next registration period starts"
+ - [x] Checkbox - "Email me when the guessing period starts"
+ - [x] Checkbox - "Email me when the results are published"
+ - [x] Checkbox - "Email me when the next registration period starts"
 
 ```
 token.php
@@ -67,7 +67,7 @@ countdown.php
  - [x] Beter display the allowed guessing range
  - [x] Display META->NOP and META->NOG
    - From this it is possible to calculate how many participants have (not) guessed, maybe display a fraction NOG/NOP ?
- - [] The use of $success is failing (code scope issue?)
+ - [ ] The use of $success is failing (code scope issue?)
 
 
 ```
@@ -77,17 +77,17 @@ results.php
  - [x] Add indication to results page to show tokens
  - [x] Add menu bar (register, countdown, results)
  - [x] Make "The Results Are In" text dynamic (META->STATE)
- - [] Link to current results CSV
- - [] Link to historical results CSVs
+ - [ ] Link to current results CSV
+ - [ ] Link to historical results CSVs
 
 ```
 panel.php
 ```
- - [] Create this
- - [] Show NOP
- - [] Show NOG (number of guesses)
- - [] Ability to run meta script without remotely accessing xvk3
- - [] Security?
+ - [ ] Create this
+ - [ ] Show NOP
+ - [ ] Show NOG (number of guesses)
+ - [ ] Ability to run meta script without remotely accessing xvk3
+ - [ ] Security?
 
 ## Meta Files
 
@@ -97,17 +97,22 @@ wipe_db.php
 
 ```
 permit_registration.php
+ - [ ] Send email to all participants who have the GHU->SERP
+   - This is harder because GHU is wiped before permit_registration.php can access GHU
 ```
 
 ```
 permit_guesses.php
 ```
+ - [ ] Send email to all participants who have the GHU->SEGP
+
 
 ```
 calculate_winner.php
-````
+```
  - [x] Create this
  - [x] Calculate highest unique
  - [x] Update META->WTOKEN
  - [x] Generate CSV
- - [] Send email to winner
+ - [ ] Send email to winner
+ - [ ] Send email to all participants who have the GHU->SEFP
