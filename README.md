@@ -8,7 +8,7 @@ The Guess Highest Unique number "lottery" involves three processes
 ## TODO:
 
  - [x] Add instructions or guidance to register.php or main overview
- - [] Update files based on new PHP knowledge
+ - [ ] Update files based on new PHP knowledge
  - [x] Setup "meta" table to hold current mode, NUMBER_OF_PARTICIPANTS
  - [x] Make table hold data on historial GHU results, HGHU->{ID,DATE,WTOKEN,WGUESS,CSV}
    - [ ] results.php can read the newest row of this table and display results accordingly
