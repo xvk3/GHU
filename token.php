@@ -104,8 +104,11 @@ function checkToken($conn, $token) {
   if(($row['STATE'] == 1) && ($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
     //posted variables
-    $post_name = $_POST["name"];
+    $post_name  = $_POST["name"];
     $post_email = $_POST["email"];
+    $post_segp  = ($_POST["segp"] == "on" ? true : false);
+    $post_sefp  = ($_POST["sefp"] == "on" ? true : false);
+    $post_serp  = ($_POST["serp"] == "on" ? true : false);
 
     //check connection
     if ($conn) {
@@ -145,9 +148,9 @@ function checkToken($conn, $token) {
       } while(checkToken($conn, $token)); 
 
       // Insert name and email into database
-      $sql = "INSERT INTO GHU (NAME, EMAIL, TOKEN) VALUES (?, ?, ?)";
+      $sql = "INSERT INTO GHU (NAME, EMAIL, TOKEN, SEGP, SEFP, SERP) VALUES (?, ?, ?, ?, ?, ?)";
       $pql = mysqli_prepare($conn, $sql);
-      if(!mysqli_stmt_bind_param($pql, 'sss', $post_name, $post_email, $token)) {
+      if(!mysqli_stmt_bind_param($pql, 'ssssss', $post_name, $post_email, $token, $post_segp, $post_sefp, $post_serp)) {
         echo "token.php:mysqli_stmt_bind_param failed\r\n";
         //die();
       } else {

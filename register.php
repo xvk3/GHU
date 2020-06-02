@@ -81,15 +81,16 @@
           <span><i class="fa fa-envelope-o"></i></span>
         </div>
         <h1>Email me when:</h1><br>
-        <input <?php if($state != 1) echo "disabled"; ?> type="checkbox" name="segp" id="segp">
-        <label for="segp">The guessing period begins:</label><br>
+        <div class="checkboxes">
+          <input <?php if($state != 1) echo "disabled"; ?> type="checkbox" name="segp" id="segp">
+          <label for="segp">The guessing period begins</label><br>
 
-        <input <?php if($state != 1) echo "disabled"; ?> type="checkbox" name="sefp" id="sefp">
-        <label for="sefp">The results are published</label><br>
+          <input <?php if($state != 1) echo "disabled"; ?> type="checkbox" name="sefp" id="sefp">
+          <label for="sefp">The results are published</label><br>
 
-        <input <?php if($state != 1) echo "disabled"; ?> type="checkbox" name="serp" id="serp">
-        <label for="serp">I can register for the next round</label><br><br>
-
+          <input <?php if($state != 1) echo "disabled"; ?> type="checkbox" name="serp" id="serp">
+          <label for="serp">I can register for the next round</label><br><br>
+        </div>
         <button  <?php if($state != 1) echo "disabled"; ?> type="submit" id="submit" class="btn btn-primary btn-block btn-large">Register</button>
       </form>
     </div>
