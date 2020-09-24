@@ -101,6 +101,11 @@
               } else {
                 echo "not already guessed\r\n";
 
+                $myfile = fopen("guess.php.log", "a");
+                $line = $id . ":" . $token . ":" . $post_guess . "\n";
+                fwrite($myfile, $line);
+                fclose($myfile);
+
                 $sql = "UPDATE GHU SET GUESS=? WHERE ID=?";
                 $pql = mysqli_prepare($conn, $sql);
                 if(!mysqli_stmt_bind_param($pql, 'ss', $post_guess, $id)) {
